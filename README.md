@@ -201,6 +201,8 @@ gained on the Akkermansia branch.
 | `scripts/43_build_mucin_matrix.py` | Mucin presence matrix assembled |
 | `scripts/44_fig3_mucin_5group.py` | Mucin conservation heatmap |
 
+Output: `figures/Figure_mucin_conservation.pdf`
+
 ### Step 6. Loss of the oxidative pentose phosphate pathway in Akkermansia
 
 The three genes of the oxidative pentose phosphate pathway are scored across
@@ -240,6 +242,8 @@ better-assembled one.
 | `scripts/50_fig_ppp_final.py` | Pathway prevalence heatmap |
 | `scripts/51_fig_ppp_operon_final.py` | Operon diagram |
 | `scripts/61_check_mag_vs_isolate.py` | Assembly-type and completeness control on absence claims |
+
+Output: `figures/Figure_ppp_loss.pdf`, `figures/Figure_ppp_operon.pdf`
 
 ### Step 7. Divergence in the carbohydrate-active enzyme repertoire
 
@@ -282,6 +286,8 @@ criterion. The five groups cover 344 of the 346 annotated Akkermansia genomes.
 | `scripts/60_cazy_by_freeliving_genus.py` | Family prevalence by free-living genus |
 | `scripts/62_fig_cazy_heatmap.py` | Enzyme family heatmap |
 | `scripts/63_fig_cazy_panels.py` | Enzyme family panels |
+
+Output: `figures/Figure_cazy_heatmap.pdf`, `figures/Figure_cazy_polarity_panels.pdf`
 
 ## Software
 
