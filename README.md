@@ -14,36 +14,29 @@ Each step below summarizes the analysis, its main result, and the scripts used.
 
 ### Step 1. Identification of the candidate genome set
 
-Akkermansiaceae genomes carrying no genus assignment are pulled from the
-genome catalogue and checked against the classifier output to confirm that the
-missing assignment reflects taxonomic novelty rather than a failed call.
-Because the catalogue sample identifier is a sequencing run rather than an
-animal, host animals are recounted under a corrected unit before any
-host-level number is quoted, and captivity status is reconciled across
-metadata sources, since a captivity confound would invalidate later
-comparisons.
+Genomes with no GTDB genus assignment are pulled from the catalogue and checked
+against the classifier, to confirm the missing assignment means novelty rather than a
+failed call. Host animals are recounted under a corrected unit, since the catalogue
+identifier is a sequencing run and not an animal, and captivity status is reconciled
+across metadata sources, since a captivity confound would invalidate later comparisons.
 
-**Main result.** Akkermansiaceae genomes carrying no GTDB genus assignment
-number 107 in the combined catalogue. Two of these, both recovered from a
-single tortoise, share 53.3% amino acid identity with the type genome (53.26
-and 53.28% over 1,193 and 1,037 reciprocal best hits) against 60.3 to 99.4%
-for the remaining genomes, a seven-point gap with nothing in between, and they
-were excluded on that basis rather than by a decision taken in advance. The
-candidate set is therefore 105 MAGs, split 54 from the herptile MAG catalogue
-and 51 from the EHI catalogue. All 105 are from amphibians; this reflects the
-exclusion together with the amphibian-weighted composition of the source
-catalogues, so it describes the sampled range rather than establishing host
-specificity. All 105 matched the annotation table with none unmatched, and
-median completeness is 96.6% (range 51.2 to 100.0). Under the corrected animal
-unit the set represents 66 host animals rather than the larger count implied
-by sequencing-run identifiers, an oversplit that inflates the amphibian side
-specifically. All 105 genomes are from wild animals. Chimerism screening
-against proGenomes 2.1 passes 102 of the 105 at the default threshold, against
-86 of 94 amphibian Akkermansia screened in the same run, and returns no genome
-meeting a strict chimera call in either group. All 105 candidate genomes fall
-below a reference representation score of 0.5, which reflects the absence of a
-named representative of this lineage from the reference set rather than
-evidence of contamination.
+**The set.** 107 genomes carry no genus assignment. Two, both from one tortoise, sit at
+53.3% amino acid identity to the type genome (53.26 and 53.28% over 1,193 and 1,037
+reciprocal best hits) against 60.3 to 99.4% for the rest. The seven-point gap is empty,
+so they were excluded on evidence rather than by a decision taken in advance. That
+leaves 105 MAGs: 54 from the herptile catalogue, 51 from EHI, representing 66 host
+animals.
+
+**Host range.** All 105 are amphibian. This follows from the exclusion and from the
+amphibian-weighted catalogues, so it describes where we sampled and not host specificity.
+
+**Quality.** Median completeness 96.6% (51.2 to 100.0). All 105 matched the annotation
+table, none unmatched. All 105 are from wild animals.
+
+**Chimerism.** 102 of 105 pass GUNC at the default threshold, against 86 of 94 amphibian
+*Akkermansia* screened in the same run, and no genome in either group meets a strict
+chimera call. All 105 fall below a reference representation score of 0.5, which reflects
+having no named representative in the reference set rather than contamination.
 
 | File | Purpose |
 |---|---|
@@ -57,6 +50,8 @@ evidence of contamination.
 | `scripts/64_tortoise_exclusion_aai.py` | Non-amphibian genomes excluded by amino acid identity to the type genome |
 | `jobs/70_run_gunc_199.sh` | Chimerism screening submitted for the candidate and sister genomes |
 | `scripts/71_gunc_audit_199.py` | Chimerism screening results audited by arm |
+
+Output: `tables/TableS1_genome_quality.tsv`, `tables/TableS2_chimerism.tsv`
 
 ### Step 2. Phylogenetic placement
 
@@ -88,48 +83,45 @@ and their common parent.
 | `jobs/12_run_iqtree_placement.sh` | Placement re-inferred by maximum likelihood with branch support |
 | `scripts/13_read_iqtree_support2.py` | Support values decoded at the three key nodes |
 | `scripts/14_compare_iqtree_fasttree.py` | Topology compared between the two inference methods |
-| `scripts/15_fig1_akk_clades_iqtree.py` | Tree and clade colour annotations for the placement figure |
+| `scripts/15_fig1_akk_clades_iqtree.py` | Tree collapsed and coloured for the figure |
+| `scripts/73_fig1_render.py` | Placement figure rendered |
+
+Output: `figures/Figure1_placement.pdf`
 
 ### Step 3. Genus delimitation and genome description
 
-Delimitation is assessed on three independent axes, since no single threshold
-settles a genus boundary. Amino acid identity and percentage of conserved
-proteins are computed against a representative of every neighbouring genus,
-with the conserved-protein statistic recomputed properly and then tested for
-stability across alternative representatives, because a single-reference value
-sitting near the decision threshold cannot carry a delimitation. Nucleotide
-identity is used for species-level structure within the candidate set only,
-after a control establishes what the tool can and cannot resolve at this
-distance. Genome size, GC content, and the features required by the MIMAG
-standard are then measured for the description.
+Delimitation rests on three independent axes, since no single threshold settles a genus
+boundary. Nucleotide identity is used only for species structure within the set, after a
+control establishes what the tool can resolve at this distance.
 
-**Main result.** Amino acid identity between the candidate genus and
-Akkermansia is 56.6% over 1,445 reciprocal best hits, against 48.4 to 50.7%
-for the other neighbouring genera, placing the candidate closer to
-Akkermansia than any other genus while remaining well outside it. The
-conserved-protein statistic is 51.8% against a single reference but ranges
-from 46.3 to 54.2% across six alternative representatives and declines with
-genome size, so it straddles the conventional threshold and cannot carry the
-delimitation on its own; the delimitation therefore rests on relative
-evolutionary divergence, topology, and amino acid identity. A nucleotide
-identity control is decisive about its own limits: 90 of 94 genuinely named
-amphibian Akkermansia also returned no hit against the same reference set, so
-the absence of hits from the candidate genomes is a tool floor and carries no
-information. Within the candidate set, 105 genomes resolve into 17 clusters at
-95% identity across 11,025 pairs. Median genome size is 3.04 Mb (1.42 to 4.01)
-and median GC is 49.05% (43.46 to 52.72). Five of the 105 genomes meet the
-MIMAG high-quality standard. The designated type genome is 3.29 Mb at 49.07%
-GC, 100% complete with 0.17% contamination, carries 5S, 16S, and 23S rRNA and
-21 tRNA amino acid types, and derives from a wild newt; it ranks 23rd of 105
-by distance to the set median, so it is a high-quality representative rather
-than the most typical genome. Reduced genomes are distributed according to
-how reduction is defined: under a rule flagging any cluster below either
-threshold, median GC under 45.5% or median size under 2.6 Mb, seven clusters
-totalling 34 genomes qualify, but only one is reduced in both dimensions,
-holding 18 genomes at 2.19 Mb and 43.7% GC. The remaining six clusters, 16
-genomes between them, each fall below one threshold only. Amino acid identity
-within the candidate genus, measured from every genome to the type genome,
-ranges from 60.3 to 99.4% with a median of 89.9%.
+**Amino acid identity.** 56.6% to *Akkermansia* over 1,445 reciprocal best hits, against
+48.4 to 50.7% for the other neighbouring genera. Closer to *Akkermansia* than to anything
+else, and still outside it.
+
+**Conserved proteins.** 51.8% against a single reference, but 46.3 to 54.2% across six
+alternatives, and the value declines with genome size. It straddles the conventional
+threshold and cannot carry the delimitation alone, so the delimitation rests on relative
+evolutionary divergence, topology, and amino acid identity.
+
+**Nucleotide identity control.** 90 of 94 genuinely named amphibian *Akkermansia* also
+returned no hit against the same reference set. The absence of hits from the candidate
+genomes is therefore a tool floor and carries no information.
+
+**Species structure.** 105 genomes resolve into 17 clusters at 95% identity across 11,025
+pairs. Within-genus amino acid identity to the type genome runs 60.3 to 99.4%, median
+89.9%.
+
+**Genome description.** Median size 3.04 Mb (1.42 to 4.01), median GC 49.05% (43.46 to
+52.72). Five genomes meet the MIMAG high-quality standard.
+
+**Type genome.** 3.29 Mb, 49.07% GC, 100% complete, 0.17% contamination, 5S, 16S and 23S
+rRNA, 21 tRNA amino acid types, from a wild newt. It ranks 23rd of 105 by distance to the
+set median, so it is a high-quality representative rather than the most typical genome.
+
+**Reduced genomes.** The count depends on the criterion. Under an either-or rule, median
+GC below 45.5% or median size below 2.6 Mb, seven clusters and 34 genomes qualify. Only
+one cluster is reduced in both dimensions: 18 genomes at 2.19 Mb and 43.7% GC. The other
+six, 16 genomes between them, fall below one threshold only.
 
 | File | Purpose |
 |---|---|
@@ -155,28 +147,27 @@ stands.
 
 ### Step 4. Gene calling, pangenome, and orthology polarization
 
-All genomes are re-called with one gene caller under identical settings, so
-that no comparison inherits differences between upstream annotation pipelines.
-Protein clusters are then partitioned across the candidate and sister sets,
-and orthogroups are inferred across a representative set that includes
-free-living outgroups. Including the outgroups is what makes the comparison
-polarizable: a family absent from Akkermansia but present in both the
-candidate genus and the free-living genera indicates loss on the Akkermansia
-branch, whereas absence from the whole gut clade indicates loss earlier. The
-categories are then annotated functionally on an independent layer.
+All genomes are re-called with one gene caller, so no comparison inherits differences
+between upstream pipelines. Orthogroups are then inferred across a representative set
+that includes free-living outgroups. The outgroups are what make the comparison
+polarizable: absent from *Akkermansia* but present in both the candidate genus and the
+free-living genera means loss on the *Akkermansia* branch, while absence from the whole
+gut clade means loss earlier.
 
-**Main result.** Of 2,219 orthogroups assigned a polarity, the dominant event
-is not on the Akkermansia branch: 1,047 were lost at the ancestor shared by
-the candidate genus and Akkermansia, against 57 lost specifically on the
-Akkermansia branch, while 1,026 are retained across the gut clade, 55 are
-specific to the candidate genus, and 34 are enriched in Akkermansia.
-Functional annotation returned assignments for 81 orthogroups across the three
-non-background categories (52 Akkermansia-branch losses, 16 candidate-specific,
-13 Akkermansia-enriched). Among the annotated Akkermansia-branch losses are both
-glucose-6-phosphate dehydrogenase and 6-phosphogluconate dehydrogenase,
-recovering by an independent route the pathway loss established in Step 6. Pangenome family counts are not
-interpreted as biological quantities, because clustering identity strongly
-affects them across a two-genus span.
+**Where the losses fall.** Of 2,219 polarized orthogroups, the dominant event is not on
+the *Akkermansia* branch. 1,047 were lost at the ancestor shared by both gut genera,
+against 57 on the *Akkermansia* branch itself.
+
+**The other categories.** 1,026 retained across the gut clade, 55 candidate-specific, 34
+enriched in *Akkermansia*.
+
+**Function.** Annotation returned 81 assignments across the three non-background
+categories: 52 *Akkermansia*-branch losses, 16 candidate-specific, 13 enriched. Both
+glucose-6-phosphate dehydrogenase and 6-phosphogluconate dehydrogenase appear among the
+annotated branch losses, recovering the Step 6 result by an independent route.
+
+**Not interpreted.** Pangenome family counts are not read as biological quantities,
+because clustering identity strongly affects them across a two-genus span.
 
 | File | Purpose |
 |---|---|
@@ -228,32 +219,28 @@ Output: `figures/Figure_mucin_conservation.pdf`
 
 ### Step 6. Loss of the oxidative pentose phosphate pathway in Akkermansia
 
-The three genes of the oxidative pentose phosphate pathway are scored across
-the candidate genus, three separate Akkermansia collections, and the
-free-living genera. Denominators are taken from database directory counts
-rather than from hit parsing, since a parse wobble in the denominator would
-change a prevalence even when the numerator is zero. Physical linkage is then
-measured, because two genes that are adjacent and co-oriented across most
-genomes carrying both are better evidence of a functional unit than presence
-alone, and an assembly-quality control tests whether absence could be an
-artifact of genome recovery.
+The three pathway genes are scored across the candidate genus, three separate
+*Akkermansia* collections, and the free-living genera. Denominators come from database
+directory counts rather than hit parsing, since a parse wobble would change a prevalence
+even when the numerator is zero.
 
-**Main result.** The pathway is present throughout the candidate genus, with
-glucose-6-phosphate dehydrogenase in 100 of 105 genomes, 6-phosphogluconate
-dehydrogenase in 101 of 105, and the dehydrogenase accessory subunit in 97 of
-105, and it is present across the free-living genera. It is absent from every
-Akkermansia genome tested: 0 of 94 amphibian, 0 of 172 family reference, and 0
-of 60 GTDB genomes, 0 of 326 in total. Because the pathway is present in both
-the sister genus and the free-living outgroups, the distribution is read
-directly as loss on the Akkermansia branch, with no model required. In the 95
-candidate genomes carrying both, the dehydrogenase and its accessory subunit
-lie on the same contig in 91, with a median intergenic gap of 20 bp (range 12
-to 60, all under 100 bp) and co-orientation in all 91, while
-6-phosphogluconate dehydrogenase is unlinked. Assembly quality does not
-explain the absence: the gut genomes are 98.0% MAGs at median completeness
-96.4%, while the free-living genomes that retain the pathway are 90.7% MAGs at
-median completeness 93.1%, so the set lacking the pathway is the
-better-assembled one.
+**Present in the candidate genus.** Glucose-6-phosphate dehydrogenase in 100 of 105,
+6-phosphogluconate dehydrogenase in 101 of 105, the accessory subunit in 97 of 105. The
+pathway is also present across the free-living genera.
+
+**Absent from *Akkermansia*.** 0 of 94 amphibian, 0 of 172 family reference, 0 of 60
+GTDB. 0 of 326 in total. Because the pathway is present in both the sister genus and the
+outgroups, this reads directly as loss on the *Akkermansia* branch, with no model
+required.
+
+**Physical linkage.** In the 95 candidate genomes carrying both, the dehydrogenase and
+its accessory subunit share a contig in 91, with a median intergenic gap of 20 bp (12 to
+60, all under 100) and co-orientation in all 91. 6-phosphogluconate dehydrogenase is
+unlinked.
+
+**Not an assembly artifact.** The gut genomes are 98.0% MAGs at median completeness
+96.4%; the free-living genomes that retain the pathway are 90.7% MAGs at 93.1%. The set
+lacking the pathway is the better-assembled one.
 
 | File | Purpose |
 |---|---|
@@ -270,51 +257,52 @@ Output: `figures/Figure_ppp_loss.pdf`, `figures/Figure_ppp_operon.pdf`
 
 ### Step 7. Divergence in the carbohydrate-active enzyme repertoire
 
-Enzyme family prevalence is censused across all annotated Verrucomicrobiota
-under one uniform evidence filter, after an earlier census was found to have
-applied different filters to two halves of the same dataset. Families are then
-compared across five lineage-matched groups, so that any difference is within
-Akkermansiaceae rather than between genera of different habitat, and finally
-polarized against the free-living genera in the same way as the orthogroups in
-Step 4.
+Family prevalence is censused across all annotated Verrucomicrobiota under one evidence
+filter, after an earlier census was found to have applied different filters to two halves
+of the same dataset. Families are compared across five lineage-matched groups, so any
+difference is within Akkermansiaceae rather than between genera of different habitat, then
+polarized against the free-living genera as in Step 4.
 
-**Main result.** The candidate genus and Akkermansia differ sharply in
-chitin-related families, in opposite directions for the two principal
-families. GH75 is present in 80.0% of candidate genomes against 20.2% of
-amphibian Akkermansia, 6.6% of wall lizard Akkermansia, 67.6% of mammal
-Akkermansia, and 73.8% of GTDB Akkermansia, while GH18 runs the other way at
-11.4% in the candidate genus against 84.0%, 91.2%, 59.2%, and 61.9%. GH46 is
-present in 29.5% of candidate genomes and absent from every Akkermansia group.
-A housekeeping control family is flat across the same groups, so the contrast
-is not an assembly artifact. Against the free-living genera, GH75 is common
-throughout (61.1 to 100%) and GH18 is not (0 to 40.7%), and a set of further
-families including GH92, GH38, GH139, GH120, PL33, GH154, CBM91, and GH141 is
-carried by 53 to 67% of candidate genomes and by the free-living genera while
-sitting between 0.3% and 1.4% across Akkermansia. Gain of families in the
-candidate genus is not reported here: two criteria applied to the same 294
-families return different counts, and neither is adopted. The direction of the
-GH75
-difference is reported as a prevalence contrast and not as a loss, because a
-formal reconstruction of that family did not meet its pre-registered
-criterion. The five groups cover 344 of the 346 annotated Akkermansia genomes.
+**Chitin-related families run in opposite directions.** GH75 is in 80.0% of candidate
+genomes against 20.2%, 6.6%, 67.6% and 73.8% across the four *Akkermansia* groups. GH18
+runs the other way: 11.4% against 84.0%, 91.2%, 59.2% and 61.9%. GH46 is in 29.5% of
+candidate genomes and absent from every *Akkermansia* group. A housekeeping control family
+is flat across the same groups, so the contrast is not an assembly artifact.
 
-One species cluster within the candidate genus, 18 genomes recovered only from
-newts, is reduced in both genome size and GC content relative to the rest of
-the genus. Enzyme family richness is proportional to genome size: the cluster
-carries a median 44 families per genome against 64 for the remaining 87, but
-the two groups are indistinguishable once size is accounted for, at 20.0
-against 20.4 families per Mb. Enzyme protein copy-number density is instead
-markedly lower: 87 enzyme proteins against 171, which is 51% of the comparison
-group against 71% of its genome size, and 39.4 against 54.5 proteins per Mb.
-Reduction in this lineage has removed gene copies rather than gene families. This places three reductions
-at three depths in the same clade, the third having already produced a narrower
-repertoire than Akkermansia itself. Every family absent from Akkermansia but
-retained across the candidate genus is also absent from this cluster, but the
-nesting is largely expected rather than diagnostic: both sets occupy the same
-narrow prevalence band, and a null matched on prevalence recovers a mean of
-6.65 of the 9 observed overlaps. The analysis covers enzyme families only, since
-the orthogroup work was conducted on cluster-level representative proteomes
-rather than individual genomes.
+**Against the free-living genera.** GH75 is common throughout (61.1 to 100%) and GH18 is
+not (0 to 40.7%). A further set including GH92, GH38, GH139, GH120, PL33, GH154, CBM91 and
+GH141 is carried by 53 to 67% of candidate genomes and by the free-living genera, while
+sitting between 0.3% and 1.4% across *Akkermansia*.
+
+**Not reported.** Gain of families: two criteria on the same 294 families return different
+counts and neither is adopted. The direction of the GH75 difference: reported as a
+prevalence contrast, not a loss, because the formal reconstruction did not meet its
+pre-registered criterion.
+
+The five groups cover 344 of the 346 annotated *Akkermansia* genomes.
+
+### A recent reduction inside the candidate genus
+
+One species cluster, 18 genomes from newts only, is reduced in both size and GC.
+
+**Family richness scales with genome size.** 44 families per genome against 64 for the
+other 87, but 20.0 against 20.4 families per Mb: indistinguishable once size is accounted
+for.
+
+**Copy-number density does not.** 87 enzyme proteins against 171, which is 51% of the
+comparison group against 71% of its genome size, and 39.4 against 54.5 proteins per Mb.
+Reduction here has removed gene copies rather than gene families.
+
+**Three depths.** That places three reductions in the same clade, the most recent already
+producing a narrower repertoire than *Akkermansia* itself.
+
+**The nesting is expected, not diagnostic.** Every family absent from *Akkermansia* but
+retained across the candidate genus is also absent from this cluster. But both sets sit in
+the same narrow prevalence band, and a prevalence-matched null recovers a mean of 6.65 of
+the 9 observed overlaps.
+
+**Scope.** Enzyme families only. The orthogroup work used cluster-level representative
+proteomes rather than individual genomes, so the same question cannot be asked there.
 
 | File | Purpose |
 |---|---|
