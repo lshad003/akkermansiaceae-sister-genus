@@ -300,13 +300,13 @@ criterion. The five groups cover 344 of the 346 annotated Akkermansia genomes.
 
 One species cluster within the candidate genus, 18 genomes recovered only from
 newts, is reduced in both genome size and GC content relative to the rest of
-the genus. Its enzyme repertoire is narrower, at a median 44 families per
-genome against 64 for the remaining 87, but that difference is proportional to
-genome size and disappears once size is accounted for, at 20.0 against 20.4
-families per Mb. The repertoire is instead markedly shallower: 87 enzyme
-proteins against 171, which is 51% of the comparison group against 71% of its
-genome size, and 39.4 against 54.5 proteins per Mb. Reduction in this lineage
-has removed gene copies rather than gene families. This places three reductions
+the genus. Enzyme family richness is proportional to genome size: the cluster
+carries a median 44 families per genome against 64 for the remaining 87, but
+the two groups are indistinguishable once size is accounted for, at 20.0
+against 20.4 families per Mb. Enzyme protein copy-number density is instead
+markedly lower: 87 enzyme proteins against 171, which is 51% of the comparison
+group against 71% of its genome size, and 39.4 against 54.5 proteins per Mb.
+Reduction in this lineage has removed gene copies rather than gene families. This places three reductions
 at three depths in the same clade, the third having already produced a narrower
 repertoire than Akkermansia itself. Every family absent from Akkermansia but
 retained across the candidate genus is also absent from this cluster, but the
