@@ -23,14 +23,27 @@ host-level number is quoted, and captivity status is reconciled across
 metadata sources, since a captivity confound would invalidate later
 comparisons.
 
-**Main result.** The candidate set comprises 105 Akkermansiaceae MAGs with no
-GTDB genus assignment, all from amphibians, split 54 from the herptile MAG
-catalogue and 51 from the EHI catalogue. All 105 matched the annotation table
-with none unmatched, and median completeness is 96.6% (range 51.2 to 100.0).
-Under the corrected animal unit the set represents 66 host animals rather than
-the larger count implied by sequencing-run identifiers, an oversplit that
-inflates the amphibian side specifically. All 105 genomes are from wild
-animals.
+**Main result.** Akkermansiaceae genomes carrying no GTDB genus assignment
+number 107 in the combined catalogue. Two of these, both recovered from a
+single tortoise, share 53.3% amino acid identity with the type genome (53.26
+and 53.28% over 1,193 and 1,037 reciprocal best hits) against 60.3 to 99.4%
+for the remaining genomes, a seven-point gap with nothing in between, and they
+were excluded on that basis rather than by a decision taken in advance. The
+candidate set is therefore 105 MAGs, split 54 from the herptile MAG catalogue
+and 51 from the EHI catalogue. All 105 are from amphibians; this reflects the
+exclusion together with the amphibian-weighted composition of the source
+catalogues, so it describes the sampled range rather than establishing host
+specificity. All 105 matched the annotation table with none unmatched, and
+median completeness is 96.6% (range 51.2 to 100.0). Under the corrected animal
+unit the set represents 66 host animals rather than the larger count implied
+by sequencing-run identifiers, an oversplit that inflates the amphibian side
+specifically. All 105 genomes are from wild animals. Chimerism screening
+against proGenomes 2.1 passes 102 of the 105 at the default threshold, against
+86 of 94 amphibian Akkermansia screened in the same run, and returns no genome
+meeting a strict chimera call in either group. All 105 candidate genomes fall
+below a reference representation score of 0.5, which reflects the absence of a
+named representative of this lineage from the reference set rather than
+evidence of contamination.
 
 | File | Purpose |
 |---|---|
@@ -41,6 +54,9 @@ animals.
 | `scripts/05_recount_host_animals_corrected_unit.py` | Host animals recounted under the corrected animal unit |
 | `scripts/06_verify_novel_qc.py` | Completeness and contamination verified for the candidate set |
 | `scripts/07_reconcile_captivity.py` | Wild and captive status reconciled across metadata sources |
+| `scripts/64_tortoise_exclusion_aai.py` | Non-amphibian genomes excluded by amino acid identity to the type genome |
+| `jobs/70_run_gunc_199.sh` | Chimerism screening submitted for the candidate and sister genomes |
+| `scripts/71_gunc_audit_199.py` | Chimerism screening results audited by arm |
 
 ### Step 2. Phylogenetic placement
 
@@ -106,9 +122,14 @@ MIMAG high-quality standard. The designated type genome is 3.29 Mb at 49.07%
 GC, 100% complete with 0.17% contamination, carries 5S, 16S, and 23S rRNA and
 21 tRNA amino acid types, and derives from a wild newt; it ranks 23rd of 105
 by distance to the set median, so it is a high-quality representative rather
-than the most typical genome. Reduced genomes do not form one cluster: seven
-clusters totalling 34 genomes fall in the reduced range, the largest holding
-18 genomes at 2.19 Mb and 43.7% GC.
+than the most typical genome. Reduced genomes are distributed according to
+how reduction is defined: under a rule flagging any cluster below either
+threshold, median GC under 45.5% or median size under 2.6 Mb, seven clusters
+totalling 34 genomes qualify, but only one is reduced in both dimensions,
+holding 18 genomes at 2.19 Mb and 43.7% GC. The remaining six clusters, 16
+genomes between them, each fall below one threshold only. Amino acid identity
+within the candidate genus, measured from every genome to the type genome,
+ranges from 60.3 to 99.4% with a median of 89.9%.
 
 | File | Purpose |
 |---|---|
@@ -124,6 +145,8 @@ clusters totalling 34 genomes fall in the reduced range, the largest holding
 | `scripts/25_verify_mimag_count2.py` | High-quality genome count verified against the MIMAG standard |
 | `scripts/26_check_type_genome_median.py` | Type genome checked against the set median |
 | `scripts/27_check_reduced_cluster.py` | Reduced-genome clusters characterized |
+| `jobs/66_run_within_genus_aai.sh` | Within-genus identity calculation submitted |
+| `scripts/65_within_genus_aai.py` | Amino acid identity of every candidate genome to the type genome |
 
 Note: the POCP reported is the one from `scripts/18_pocp_fixed.py`. The value
 produced by `scripts/17_aai_pocp.py` is an approximation, as its own comment
@@ -267,8 +290,10 @@ is not an assembly artifact. Against the free-living genera, GH75 is common
 throughout (61.1 to 100%) and GH18 is not (0 to 40.7%), and a set of further
 families including GH92, GH38, GH139, GH120, PL33, GH154, CBM91, and GH141 is
 carried by 53 to 67% of candidate genomes and by the free-living genera while
-sitting between 0.3% and 1.4% across Akkermansia. Eight of 294 families met
-the criterion for gain in the candidate genus. The direction of the GH75
+sitting between 0.3% and 1.4% across Akkermansia. Gain of families in the
+candidate genus is not reported here: two criteria applied to the same 294
+families return different counts, and neither is adopted. The direction of the
+GH75
 difference is reported as a prevalence contrast and not as a loss, because a
 formal reconstruction of that family did not meet its pre-registered
 criterion. The five groups cover 344 of the 346 annotated Akkermansia genomes.
