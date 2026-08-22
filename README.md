@@ -298,6 +298,24 @@ difference is reported as a prevalence contrast and not as a loss, because a
 formal reconstruction of that family did not meet its pre-registered
 criterion. The five groups cover 344 of the 346 annotated Akkermansia genomes.
 
+One species cluster within the candidate genus, 18 genomes recovered only from
+newts, is reduced in both genome size and GC content relative to the rest of
+the genus. Its enzyme repertoire is narrower, at a median 44 families per
+genome against 64 for the remaining 87, but that difference is proportional to
+genome size and disappears once size is accounted for, at 20.0 against 20.4
+families per Mb. The repertoire is instead markedly shallower: 87 enzyme
+proteins against 171, which is 51% of the comparison group against 71% of its
+genome size, and 39.4 against 54.5 proteins per Mb. Reduction in this lineage
+has removed gene copies rather than gene families. This places three reductions
+at three depths in the same clade, the third having already produced a narrower
+repertoire than Akkermansia itself. Every family absent from Akkermansia but
+retained across the candidate genus is also absent from this cluster, but the
+nesting is largely expected rather than diagnostic: both sets occupy the same
+narrow prevalence band, and a null matched on prevalence recovers a mean of
+6.65 of the 9 observed overlaps. The analysis covers enzyme families only, since
+the orthogroup work was conducted on cluster-level representative proteomes
+rather than individual genomes.
+
 | File | Purpose |
 |---|---|
 | `scripts/52_patch_census_v3.py` | Census patched to a uniform evidence filter |
@@ -311,12 +329,17 @@ criterion. The five groups cover 344 of the 346 annotated Akkermansia genomes.
 | `scripts/60_cazy_by_freeliving_genus.py` | Family prevalence by free-living genus |
 | `scripts/62_fig_cazy_heatmap.py` | Enzyme family heatmap |
 | `scripts/63_fig_cazy_panels.py` | Enzyme family panels |
+| `scripts/67_build_cazy_per_genome_matrix.py` | Enzyme family presence assembled per genome from the annotation output |
+| `scripts/68_reduced_cluster_cazy_loss.py` | Enzyme families lost in the reduced species cluster |
+| `scripts/69_reduced_cluster_matched_null.py` | Loss overlap tested against a prevalence-matched null |
+| `scripts/72_reduced_cluster_proportionality.py` | Enzyme repertoire of the reduced cluster tested against genome size |
 
 Output: `figures/Figure_cazy_heatmap.pdf`, `figures/Figure_cazy_polarity_panels.pdf`
 
 ## Software
 
-IQ-TREE 2.2.2.6, FastTree, GTDB-Tk (GTDB r226), Prodigal, PPanGGOLiN 2.2.3,
+IQ-TREE 2.2.2.6, FastTree, GTDB-Tk (GTDB r226), Prodigal, GUNC 1.0.6 with
+proGenomes 2.1, DIAMOND 2.0.4 under GUNC, PPanGGOLiN 2.2.3,
 OrthoFinder, MMseqs2, DIAMOND, skani 0.2.2, dbCAN, HMMER 3.3.2, eggNOG-mapper
 2.1.9, barrnap 0.9, tRNAscan-SE 2.0.12, CheckM, ete3, Python 3.9.
 
