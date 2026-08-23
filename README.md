@@ -371,14 +371,21 @@ of the same dataset. Families are compared across five lineage-matched groups, s
 difference is within Akkermansiaceae rather than between genera of different habitat, then
 polarized against the free-living genera as in Step 4.
 
-**Chitin-related families run in opposite directions.** GH75 is in 80.0% of candidate
-genomes against 20.2%, 6.6%, 67.6% and 73.8% across the four *Akkermansia* groups. GH18
-runs the other way: 11.4% against 84.0%, 91.2%, 59.2% and 61.9%. GH46 is in 29.5% of
-candidate genomes and absent from every *Akkermansia* group. A housekeeping control family
-is flat across the same groups, so the contrast is not an assembly artifact.
+**Chitin-related families run in opposite directions.** The four comparison groups are
+amphibian *Akkermansia* (n = 94), *Podarcis* wall lizard (137), mammal (71) and GTDB reference
+(42). GH75 is in 80.0% of candidate genomes against 20.2%, 6.6%, 67.6% and 73.8% in those four.
+GH18 runs the other way: 11.4% against 84.0%, 91.2%, 59.2% and 61.9%. GH46 is in 31 of 105
+candidate genomes (29.5%) and in none of the 344 *Akkermansia* genomes across all four groups.
+The control family CE11 is flat over the same groups at 88.6, 89.4, 89.1, 98.6 and 100%, so the
+contrast is not an artefact of assembly or annotation depth.
 
-**Against the free-living genera.** GH75 is common throughout (61.1 to 100%) and GH18 is
-not (0 to 40.7%). A further set including GH92, GH38, GH139, GH120, PL33, GH154, CBM91 and
+**Repertoire size.** The candidate genus carries a median of 61.0 enzyme families per genome
+(interquartile range 46.0 to 66.0, n = 105) against 48.0 in *Akkermansia* (42.0 to 53.0, n =
+346). Removing the three candidate genomes that did not pass the chimerism screen leaves the
+median and the interquartile range unchanged.
+
+**Against the free-living genera.** GH75 is common throughout (61.1 to 100%) and GH18 is not
+(0 to 40.7%). A further set including GH92, GH38, GH139, GH120, PL33, GH154, CBM91 and
 GH141 is carried by 53 to 67% of candidate genomes and by the free-living genera, while
 sitting between 0.3% and 1.4% across *Akkermansia*.
 
@@ -393,16 +400,18 @@ The five groups cover 344 of the 346 annotated *Akkermansia* genomes.
 
 One species cluster, 18 genomes from newts only, is reduced in both size and GC.
 
-**Family richness scales with genome size.** 44 families per genome against 64 for the
-other 87, but 20.0 against 20.4 families per Mb: indistinguishable once size is accounted
-for.
+**Family richness scales with genome size.** At 20.0 families per Mb against 20.4 in the
+other 87 genomes, family density is indistinguishable (Mann-Whitney p = 0.84). The raw counts,
+44 families against 64, follow from the smaller genome (2.19 Mb against 3.09) and should not be
+read as selective family loss.
 
 **Copy-number density does not.** 87 enzyme proteins against 171, which is 51% of the
 comparison group against 71% of its genome size, and 39.4 against 54.5 proteins per Mb.
 Reduction here has removed gene copies rather than gene families.
 
-**Three depths.** That places three reductions in the same clade, the most recent already
-producing a narrower repertoire than *Akkermansia* itself.
+**Three depths.** That places three reductions in the same clade: 1,047 orthogroups lost at
+the shared gut ancestor, 57 on the *Akkermansia* branch, and this cluster, whose median of 44
+families per genome is already narrower than the 48 of *Akkermansia* itself.
 
 **The nesting is expected, not diagnostic.** Every family absent from *Akkermansia* but
 retained across the candidate genus is also absent from this cluster. But both sets sit in
@@ -411,6 +420,11 @@ the 9 observed overlaps.
 
 **Scope.** Enzyme families only. The orthogroup work used cluster-level representative
 proteomes rather than individual genomes, so the same question cannot be asked there.
+
+**Not chimerism.** A wider repertoire is what a chimeric bin would produce, so the chimerism
+screen in Step 1 is the control for this section. Genomes that fail it carry fewer enzyme
+families than genomes that pass, within each arm, and the candidate arm failed less often than
+the comparison arm.
 
 | File | Purpose |
 |---|---|
