@@ -122,8 +122,11 @@ failed or truncated call. The 51 EHI genomes carry family and genus assignments 
 catalogue but no RED value in that table, so this range covers the 54 classified here.
 
 **Amino acid identity.** 56.6% to *Akkermansia* over 1,445 reciprocal best hits, against
-48.4 to 50.7% for the other neighbouring genera. Closer to *Akkermansia* than to anything
-else, and still outside it.
+48.4 to 50.7% for the other neighbouring genera. This establishes the ordering rather than the
+boundary: *Akkermansia* is the closest named genus by a clear margin, and every other
+neighbour is further away. The boundary itself is set by relative evolutionary divergence and
+topology, since published amino acid identity cut-offs for the genus rank are broad and vary
+between clades.
 
 **Conserved proteins.** 51.8% against a single reference, but 46.3 to 54.2% across six
 alternatives, and the value declines with genome size. It straddles the conventional 50% threshold and cannot carry the delimitation
@@ -132,9 +135,12 @@ Akkermansiaceae genus pairs return 20.4 to 48.6%, none of them reaching 50, so t
 value sits above every accepted genus pair tested here. The delimitation rests on relative
 evolutionary divergence, topology, and amino acid identity, with this one metric dissenting.
 
-**Nucleotide identity control.** 90 of 94 genuinely named amphibian *Akkermansia* also
-returned no hit against the same reference set. The absence of hits from the candidate
-genomes is therefore a tool floor and carries no information.
+**Nucleotide identity control.** No candidate genome returned a nucleotide identity hit
+against the named reference set, which would ordinarily suggest extreme divergence. It does
+not: 90 of 94 genuinely named amphibian *Akkermansia* returned no hit against the same
+references. The absence is a limit of the screening tool at this distance and carries no
+information about the candidate genomes, so nucleotide identity is used here only for species
+structure within the set.
 
 **Species structure.** 105 genomes resolve into 17 clusters at 95% identity across 5,460
 distinct pairs. Within-genus amino acid identity to the type genome runs 60.3 to 99.4%, median
