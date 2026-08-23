@@ -275,22 +275,30 @@ Mucin-degrading enzyme families are scored across the candidate genus and four
 lineage-matched Akkermansia groups under one uniform evidence filter. The
 comparison is directed at a specific published claim, that mucin degradation
 was gained at the last common ancestor of Akkermansia and constitutes the
-innovation founding the genus. That claim was made using free-living
-Verrucomicrobiales as outgroups, all of which fall outside the 292-tip node
-identified in Step 2, so the branch it describes skips the entire sister
-lineage tested here.
+innovation founding the genus. That claim was made using free-living Verrucomicrobiales as outgroups, all of
+which fall outside the 292-tip node identified in Step 2, so the branch it describes skips the
+entire sister lineage tested here. The annotation method matches: the same enzyme family
+models at the same evidence threshold, with an additional coverage filter applied here, so
+this comparison is at least as conservative as the one it addresses.
 
-**Main result.** The candidate genus carries the mucin-degradation toolkit in
-full. Across 12 families clearing a 10% floor it carries every one at 87 to
-100% prevalence, with a median of 94.8% against 97 to 99% in the Akkermansia
-groups, and GH2, GH20, GH95, and GH109 at 100%. Four families reported absent
-from both the Akkermansia ancestor and Akkermansia genomes are absent here
-too, which confirms the two datasets are comparable. All five families
+**Main result.** The candidate genus carries the mucin-degradation toolkit in full. Twelve
+families were retained for the panel by a 10% prevalence floor, which is a selection criterion
+rather than a result. Within that panel the candidate genus carries every family, at 86.7 to
+100% prevalence, median 94.8%, against group medians of 97.2 to 98.5% in the four Akkermansia
+groups, with GH2, GH20, GH95 and GH109 at 100%. Four families reported absent from both the Akkermansia ancestor and
+Akkermansia genomes are at or below 1.9% in both gut lineages here (GH85, GH98 and GH129 at
+0%, GH101 at 1.9% in the candidate genus and 0% in Akkermansia), so the two datasets agree
+where they should. Three of the four are carried by free-living relatives (GH85 9.6%, GH129
+4.6%, GH98 3.9%), so their absence is specific to the gut lineages rather than general to the
+family. All five families
 reported as gained at the last Akkermansia common ancestor are present in the
 sister genus: GH20 at 100%, GH29 at 92.4%, GH33 at 97.1%, GH35 at 96.2%, and
-GH95 at 100%. The parsimonious reading is that this repertoire was inherited
-from the common ancestor of the gut-associated Akkermansiaceae rather than
-gained on the Akkermansia branch.
+GH95 at 100%. The panel is not uniform inside Akkermansia either: GH27 falls to 9.9% in
+mammal-associated genomes and 26.2% in the GTDB set, against 86.7% here, and GH123 falls to
+56.3% in mammal-associated genomes. The parsimonious reading of the shared families is that
+the repertoire was present in the common ancestor of the gut-associated Akkermansiaceae and
+inherited. Presence in the sister genus makes inheritance the simpler explanation; it does not
+exclude independent acquisition, and no ancestral-state reconstruction is claimed here.
 
 | File | Purpose |
 |---|---|
