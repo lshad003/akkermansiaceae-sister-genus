@@ -51,6 +51,7 @@ the repertoire would produce.
 | `scripts/05_recount_host_animals_corrected_unit.py` | Host animals recounted under the corrected animal unit |
 | `scripts/06_verify_novel_qc.py` | Completeness and contamination verified for the candidate set |
 | `scripts/07_reconcile_captivity.py` | Wild and captive status reconciled across metadata sources |
+| `scripts/82_check_novel_107_vs_105.py` | Candidate set counted before and after the non-amphibian exclusion |
 | `scripts/64_tortoise_exclusion_aai.py` | Non-amphibian genomes excluded by amino acid identity to the type genome |
 | `jobs/70_run_gunc_199.sh` | Chimerism screening submitted for the candidate and sister genomes |
 | `scripts/71_gunc_audit_199.py` | Chimerism screening results audited by arm |
@@ -125,24 +126,29 @@ catalogue but no RED value in that table, so this range covers the 54 classified
 else, and still outside it.
 
 **Conserved proteins.** 51.8% against a single reference, but 46.3 to 54.2% across six
-alternatives, and the value declines with genome size. It straddles the conventional
-threshold and cannot carry the delimitation alone, so the delimitation rests on relative
-evolutionary divergence, topology, and amino acid identity.
+alternatives, and the value declines with genome size. It straddles the conventional 50% threshold and cannot carry the delimitation
+alone. The threshold does discriminate within this family, however: 28 accepted
+Akkermansiaceae genus pairs return 20.4 to 48.6%, none of them reaching 50, so the candidate
+value sits above every accepted genus pair tested here. The delimitation rests on relative
+evolutionary divergence, topology, and amino acid identity, with this one metric dissenting.
 
 **Nucleotide identity control.** 90 of 94 genuinely named amphibian *Akkermansia* also
 returned no hit against the same reference set. The absence of hits from the candidate
 genomes is therefore a tool floor and carries no information.
 
-**Species structure.** 105 genomes resolve into 17 clusters at 95% identity across 11,025
-pairs. Within-genus amino acid identity to the type genome runs 60.3 to 99.4%, median
+**Species structure.** 105 genomes resolve into 17 clusters at 95% identity across 5,460
+distinct pairs. Within-genus amino acid identity to the type genome runs 60.3 to 99.4%, median
 89.9%.
 
 **Genome description.** Median size 3.04 Mb (1.42 to 4.01), median GC 49.05% (43.46 to
-52.72). Five genomes meet the MIMAG high-quality standard.
+52.72). Five genomes meet the MIMAG high-quality standard. That count is limited by ribosomal
+RNA recovery rather than by completeness: the standard requires 5S, 16S and 23S to be
+assembled, and short-read metagenome assemblies recover ribosomal operons poorly.
 
 **Type genome.** 3.29 Mb, 49.07% GC, 100% complete, 0.17% contamination, 5S, 16S and 23S
-rRNA, 21 tRNA amino acid types, from a wild newt. It ranks 23rd of 105 by distance to the
-set median, so it is a high-quality representative rather than the most typical genome.
+rRNA, 21 tRNA amino acid types, from a wild newt. It ranks 23rd of 105 by distance to the set median, so it is a
+high-quality representative rather than the most typical genome. It belongs to a
+15-genome species cluster, not to the reduced cluster described below.
 
 **Reduced genomes.** The count depends on the criterion. Under an either-or rule, median
 GC below 45.5% or median size below 2.6 Mb, seven clusters and 34 genomes qualify. Only
@@ -166,6 +172,7 @@ six, 16 genomes between them, fall below one threshold only.
 | `jobs/66_run_within_genus_aai.sh` | Within-genus identity calculation submitted |
 | `scripts/65_within_genus_aai.py` | Amino acid identity of every candidate genome to the type genome |
 | `scripts/81_type_genome_candidates.py` | Type genome candidates ranked against the description criteria |
+| `scripts/83_step3_red_values.py` | Genus-level novelty confirmed from classifier divergence values |
 
 Note: the POCP reported is the one from `scripts/18_pocp_fixed.py`. The value
 produced by `scripts/17_aai_pocp.py` is an approximation, as its own comment
