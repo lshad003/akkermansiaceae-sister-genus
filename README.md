@@ -357,6 +357,9 @@ lacking the pathway is the better-assembled one.
 | `scripts/50_fig_ppp_final.py` | Pathway prevalence heatmap |
 | `scripts/51_fig_ppp_operon_final.py` | Operon diagram |
 | `scripts/61_check_mag_vs_isolate.py` | Assembly-type and completeness control on absence claims |
+| `scripts/84_id_ppp_trio.py` | Pathway query proteins identified by sequence motif and length |
+| `scripts/85_ppp_freeliving_per_gene.py` | Pathway prevalence per gene across the free-living genera |
+| `scripts/86_ppp_operon_tee.py` | Operon adjacency, intergenic gap and co-orientation written to file |
 
 Output: `figures/Figure_ppp_loss.pdf`, `figures/Figure_ppp_operon.pdf`
 
