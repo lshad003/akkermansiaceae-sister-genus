@@ -149,25 +149,45 @@ stands.
 
 All genomes are re-called with one gene caller, so no comparison inherits differences
 between upstream pipelines. Orthogroups are then inferred across a representative set
-that includes free-living outgroups. The outgroups are what make the comparison
-polarizable: absent from *Akkermansia* but present in both the candidate genus and the
-free-living genera means loss on the *Akkermansia* branch, while absence from the whole
-gut clade means loss earlier.
+including free-living outgroups. The outgroups make the comparison polarizable: absent
+from *Akkermansia* but present in both the candidate genus and the free-living genera
+means loss on the *Akkermansia* branch, while absence from the whole gut clade means
+loss earlier.
 
 **Where the losses fall.** Of 2,219 polarized orthogroups, the dominant event is not on
-the *Akkermansia* branch. 1,047 were lost at the ancestor shared by both gut genera,
-against 57 on the *Akkermansia* branch itself.
+the *Akkermansia* branch: 1,047 were lost at the ancestor shared by both gut genera,
+against 57 on the *Akkermansia* branch. 1,026 are retained across the gut clade, 55 are
+candidate-specific, 34 enriched in *Akkermansia*.
 
-**The other categories.** 1,026 retained across the gut clade, 55 candidate-specific, 34
-enriched in *Akkermansia*.
+**Annotation.** All five categories were annotated on the same pipeline: 996 of 1,026
+retained (97.1%), 909 of 1,047 ancestral losses (86.8%), 52 of 57 branch losses (91.2%),
+13 of 34 enriched, 16 of 55 candidate-specific. Categories were compared against the
+retained set by Fisher's exact test with Benjamini-Hochberg correction.
 
-**Function.** Annotation returned 81 assignments across the three non-background
-categories: 52 *Akkermansia*-branch losses, 16 candidate-specific, 13 enriched. Both
-glucose-6-phosphate dehydrogenase and 6-phosphogluconate dehydrogenase appear among the
-annotated branch losses, recovering the Step 6 result by an independent route.
+**Control.** Translation and ribosomal function is depleted among the ancestral losses
+(1.9% against 13.8%, ratio 0.14, q = 1e-22) and absent from the branch losses, as expected
+of genes under strong constraint.
 
-**Not interpreted.** Pangenome family counts are not read as biological quantities,
-because clustering identity strongly affects them across a two-genus span.
+**The two events differ.** Loss on the *Akkermansia* branch is concentrated in trafficking
+and secretion (19.2% against 3.9%, ratio 4.91, q = 0.001), with motility elevated but not
+significant after correction. Loss at the shared ancestor is broad: secondary metabolites
+(ratio 4.75) and inorganic ion transport (ratio 1.75) are elevated, while coenzyme,
+nucleotide and amino acid metabolism and replication are depleted. Carbohydrate metabolism
+is the largest specific category among the ancestral losses at 7.8% but does not differ
+from background (ratio 1.18, q = 0.37).
+
+**Independent recovery.** Both glucose-6-phosphate dehydrogenase and 6-phosphogluconate
+dehydrogenase appear among the annotated branch losses, recovering the Step 6 result by a
+different route.
+
+**Two limits on reading this.** The background is the set retained across both gut genera,
+not the genome, so these are differences between lost and retained genes rather than
+enrichment against a neutral expectation. And unassigned function is itself elevated among
+the ancestral losses (27.9% against 13.9%), which partly reflects that genes present only
+in free-living Verrucomicrobiota are less well characterized.
+
+**Not interpreted.** Pangenome family counts are not read as biological quantities, because
+clustering identity strongly affects them across a two-genus span.
 
 | File | Purpose |
 |---|---|
@@ -184,6 +204,15 @@ because clustering identity strongly affects them across a two-genus span.
 | `scripts/38_extract_polarity_reps.py` | Representative proteins extracted for annotation |
 | `jobs/39_run_eggnog_polarity.sh` | Functional annotation of the polarized orthogroups |
 | `scripts/40_summarize_polarity_eggnog.py` | Annotated categories summarized |
+| `scripts/74_extract_polarity_reps_B.py` | Representative proteins for the ancestral losses |
+| `jobs/75_run_eggnog_polarity_B.sh` | Ancestral losses annotated functionally |
+| `scripts/76_summarize_polarity_B.py` | Functional categories of the ancestral losses summarized |
+| `scripts/77_extract_polarity_reps_any.py` | Representative proteins for any polarity category |
+| `jobs/78_run_eggnog_polarity_shared.sh` | Retained orthogroups annotated as the background |
+| `scripts/79_polarity_cog_enrichment.py` | Loss categories tested against the retained background |
+| `scripts/80_fig_orthogroup_polarity.py` | Orthogroup occupancy figure |
+
+Output: `figures/Figure_orthogroup_polarity.pdf`
 
 ### Step 5. The conserved mucin-degradation repertoire
 
