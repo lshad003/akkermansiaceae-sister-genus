@@ -139,6 +139,7 @@ six, 16 genomes between them, fall below one threshold only.
 | `scripts/27_check_reduced_cluster.py` | Reduced-genome clusters characterized |
 | `jobs/66_run_within_genus_aai.sh` | Within-genus identity calculation submitted |
 | `scripts/65_within_genus_aai.py` | Amino acid identity of every candidate genome to the type genome |
+| `scripts/81_type_genome_candidates.py` | Type genome candidates ranked against the description criteria |
 
 Note: the POCP reported is the one from `scripts/18_pocp_fixed.py`. The value
 produced by `scripts/17_aai_pocp.py` is an approximation, as its own comment
