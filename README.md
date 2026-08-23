@@ -14,13 +14,12 @@ Each step below summarizes the analysis, its main result, and the scripts used.
 
 ### Step 1. Identification of the candidate genome set
 
-Genomes with no GTDB genus assignment are pulled from the catalogue and checked
-against the classifier, to confirm the missing assignment means novelty rather than a
-failed call. Host animals are recounted under a corrected unit, since the catalogue
+Genomes with no GTDB genus assignment are pulled from the catalogue and checked against the classifier, to confirm the missing assignment means novelty
+rather than a failed call; the evidence is reported in Step 3. Host animals are recounted under a corrected unit, since the catalogue
 identifier is a sequencing run and not an animal, and captivity status is reconciled
 across metadata sources, since a captivity confound would invalidate later comparisons.
 
-**The set.** 107 genomes carry no genus assignment. Two, both from one tortoise, sit at
+**The set.** Within Akkermansiaceae, 107 genomes carry no genus assignment. Two, both from one tortoise, sit at
 53.3% amino acid identity to the type genome (53.26 and 53.28% over 1,193 and 1,037
 reciprocal best hits) against 60.3 to 99.4% for the rest. The seven-point gap is empty,
 so they were excluded on evidence rather than by a decision taken in advance. That
@@ -30,13 +29,18 @@ animals.
 **Host range.** All 105 are amphibian. This follows from the exclusion and from the
 amphibian-weighted catalogues, so it describes where we sampled and not host specificity.
 
-**Quality.** Median completeness 96.6% (51.2 to 100.0). All 105 matched the annotation
-table, none unmatched. All 105 are from wild animals.
+**Quality.** Median completeness 96.6% (51.2 to 100.0). These values are of mixed
+provenance: CheckM v1 for the 54 herptile MAGs, upstream quality control for the 51 EHI
+genomes, and the catalogue records no tool column. All 105 matched the annotation table,
+none unmatched. All 105 are from wild animals.
 
 **Chimerism.** 102 of 105 pass GUNC at the default threshold, against 86 of 94 amphibian
 *Akkermansia* screened in the same run, and no genome in either group meets a strict
 chimera call. All 105 fall below a reference representation score of 0.5, which reflects
-having no named representative in the reference set rather than contamination.
+having no named representative in the reference set rather than contamination. Within each
+arm, genomes that fail carry fewer enzyme families than genomes that pass (candidate 52.0
+against 61.0, *Akkermansia* 45.5 against 48.0), the opposite of what chimeric inflation of
+the repertoire would produce.
 
 | File | Purpose |
 |---|---|
@@ -107,6 +111,14 @@ Output: `figures/Figure1_placement.pdf`
 Delimitation rests on three independent axes, since no single threshold settles a genus
 boundary. Nucleotide identity is used only for species structure within the set, after a
 control establishes what the tool can resolve at this distance.
+
+**Genus-level novelty.** For the 54 genomes classified in this study, the classifier
+assigned family Akkermansiaceae and left the genus empty by relative evolutionary
+divergence: RED 0.8262 to 0.8306, median 0.8289, with no closest reference genome for any
+of them. All 54 carry the same classification method, taxonomic novelty determined using
+RED. The empty genus is therefore a positive determination of novelty at genus level, not a
+failed or truncated call. The 51 EHI genomes carry family and genus assignments in the
+catalogue but no RED value in that table, so this range covers the 54 classified here.
 
 **Amino acid identity.** 56.6% to *Akkermansia* over 1,445 reciprocal best hits, against
 48.4 to 50.7% for the other neighbouring genera. Closer to *Akkermansia* than to anything
