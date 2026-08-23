@@ -55,24 +55,38 @@ Output: `tables/TableS1_genome_quality.tsv`, `tables/TableS2_chimerism.tsv`
 
 ### Step 2. Phylogenetic placement
 
-Placement is inferred from the concatenated bac120 marker alignment, extracted
-from the classifier output in the form that retains reference genomes, since
-the user-only alignment cannot place anything. Three questions are asked
-directly of the tree: whether the candidate genomes form one clade, whether
-any of them fall inside Akkermansia, and what the sister group of the
-candidate clade is. The tree is then re-inferred by maximum likelihood with
-branch support, because the first inference carries approximate support only.
+Placement uses the concatenated bac120 marker alignment from GTDB-Tk v2.4.1 (r226), in
+the form that retains reference genomes; the user-only alignment has no references and
+cannot place anything. Masking is inherited from GTDB-Tk, not chosen here: the 784-sequence
+placement alignment is a subset of the full 144,146-sequence alignment at the same width,
+5,036 columns. Three questions are put to the tree directly rather than read off a figure:
+whether the candidates form one clade, whether any sits inside *Akkermansia*, and what the
+sister group is. The tree is then re-inferred by maximum likelihood with branch support,
+since the first inference gives approximate support only.
 
-**Main result.** In a 784-tip alignment the 105 candidate genomes form a
-single clade of exactly 105 tips with zero intruders, none of them falls
-inside the 187-tip Akkermansia clade, and the parent of the candidate clade
-subtends exactly 292 tips, comprising the 105 candidates and the 187
-Akkermansia genomes and nothing else. The sister group of the candidate clade
-is therefore exactly Akkermansia. Two independent inference methods return
-identical topology at all three nodes: approximate likelihood support of 1.0
-throughout, and maximum-likelihood support of SH-aLRT 100 with 1000 ultrafast
-bootstrap replicates at 100 for the candidate clade, the Akkermansia clade,
-and their common parent.
+**What is in the tree.** 784 tips: 105 candidates, 187 *Akkermansia*, 290 from other
+Akkermansiaceae genera (*Luteolibacter* 146, SW10 33, *Haloferula* 27, *Oceaniferula* 19,
+*Roseibacillus_B* 18, *Rubritalea* 16, and a tail), and 202 from two outgroup families,
+Verrucomicrobiaceae and Chthoniobacteraceae.
+
+**Main result.** The 105 candidates form one clade of exactly 105 tips with no intruders,
+and none falls inside *Akkermansia*. *Akkermansia* is monophyletic here: the ancestor of all
+187 *Akkermansia* tips subtends those 187 and nothing else. The parent of the candidate clade
+subtends exactly 292 tips, the 105 candidates plus the 187 *Akkermansia*, with no other
+lineage inside it. The sister group is therefore the whole of *Akkermansia*, not part of it.
+Both trees were inferred unrooted; the sister statement rests on the root falling outside the
+292-tip node, which the two outgroup families and the 290 free-living Akkermansiaceae place
+there.
+
+**Support.** Two programs on the same alignment give identical topology at all three nodes.
+FastTree (LG, gamma rates) gives approximate likelihood support 1.0 throughout. IQ-TREE
+2.2.2.6 (LG+G4, seed 20260723) gives SH-aLRT 100 and ultrafast bootstrap 100, 1000 replicates
+each, for the candidate clade, the *Akkermansia* clade, and their parent. They share a model
+and an alignment, so this checks tree search and support estimation, not independence.
+
+**Bearing on Step 5.** The published claim addressed there used free-living Verrucomicrobiales
+as outgroups. All 290 free-living Akkermansiaceae tips and all 202 outgroup-family tips fall
+outside the 292-tip node, so that branch bypasses the candidate genus.
 
 | File | Purpose |
 |---|---|
