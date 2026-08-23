@@ -188,16 +188,21 @@ stands.
 ### Step 4. Gene calling, pangenome, and orthology polarization
 
 All genomes are re-called with one gene caller, so no comparison inherits differences
-between upstream pipelines. Orthogroups are then inferred across a representative set
-including free-living outgroups. The outgroups make the comparison polarizable: absent
+between upstream pipelines. Orthogroups are then inferred across 60 representative proteomes including free-living
+outgroups. Each proteome represents a species cluster rather than a single genome, so every
+percentage below is a percentage of clusters. The outgroups make the comparison polarizable: absent
 from *Akkermansia* but present in both the candidate genus and the free-living genera
 means loss on the *Akkermansia* branch, while absence from the whole gut clade means
 loss earlier.
 
-**Where the losses fall.** Of 2,219 polarized orthogroups, the dominant event is not on
-the *Akkermansia* branch: 1,047 were lost at the ancestor shared by both gut genera,
-against 57 on the *Akkermansia* branch. 1,026 are retained across the gut clade, 55 are
-candidate-specific, 34 enriched in *Akkermansia*.
+**Where the losses fall.** 2,219 of the 8,812 orthogroups met one of the polarization
+criteria. Each criterion is explicit: loss on the *Akkermansia* branch requires presence in at
+least 70% of candidate clusters, at most 10% of *Akkermansia*, and at least three free-living
+genera; loss at the shared ancestor requires at most 5% in both gut genera and presence in at
+least five free-living genera. The dominant event is not on the *Akkermansia* branch: 1,047
+were lost at the ancestor shared by both gut genera, against 57 on the *Akkermansia* branch.
+1,026 are retained across the gut clade, 55 are candidate-specific, 34 enriched in
+*Akkermansia*.
 
 **Annotation.** All five categories were annotated on the same pipeline: 996 of 1,026
 retained (97.1%), 909 of 1,047 ancestral losses (86.8%), 52 of 57 branch losses (91.2%),
@@ -209,8 +214,9 @@ retained set by Fisher's exact test with Benjamini-Hochberg correction.
 of genes under strong constraint.
 
 **The two events differ.** Loss on the *Akkermansia* branch is concentrated in trafficking
-and secretion (19.2% against 3.9%, ratio 4.91, q = 0.001), with motility elevated but not
-significant after correction. Loss at the shared ancestor is broad: secondary metabolites
+and secretion: 10 of the 52 annotated orthogroups, 19.2% against 3.9% of the background, ratio
+4.91, q = 0.001. Motility is elevated but does not survive correction (4 orthogroups, q =
+0.06). These ratios rest on small counts and should be read as such. Loss at the shared ancestor is broad: secondary metabolites
 (ratio 4.75) and inorganic ion transport (ratio 1.75) are elevated, while coenzyme,
 nucleotide and amino acid metabolism and replication are depleted. Carbohydrate metabolism
 is the largest specific category among the ancestral losses at 7.8% but does not differ
@@ -220,14 +226,23 @@ from background (ratio 1.18, q = 0.37).
 dehydrogenase appear among the annotated branch losses, recovering the Step 6 result by a
 different route.
 
-**Two limits on reading this.** The background is the set retained across both gut genera,
-not the genome, so these are differences between lost and retained genes rather than
-enrichment against a neutral expectation. And unassigned function is itself elevated among
+**Carbohydrate enzymes among the ancestral losses.** Twelve of the 909 annotated ancestral
+losses carry a carbohydrate-active enzyme assignment, four of them involving GH18, including
+one architecture combining a lytic polysaccharide monooxygenase with chitin-binding modules.
+Some chitin machinery was therefore already lost at the shared ancestor, which cuts across
+Step 7, where GH18 is the family enriched in *Akkermansia*.
+
+**Two limits on reading this.** The background is the set retained across both gut genera, not the genome, so
+these are differences between lost and retained genes rather than enrichment against a neutral
+expectation. And the two gut genera are sisters, sharing a branch that no single free-living
+genus shares, so some shared absence is expected under any history: the shared ancestor is a
+position on the tree, not a demonstration that gut life caused the loss. And unassigned function is itself elevated among
 the ancestral losses (27.9% against 13.9%), which partly reflects that genes present only
 in free-living Verrucomicrobiota are less well characterized.
 
-**Not interpreted.** Pangenome family counts are not read as biological quantities, because
-clustering identity strongly affects them across a two-genus span.
+**Not interpreted.** The pangenome partitioning is kept in the record for provenance, but
+its family counts are not read as biological quantities: clustering identity strongly affects
+them across a two-genus span. The orthogroup analysis, not the pangenome, carries the result.
 
 | File | Purpose |
 |---|---|
