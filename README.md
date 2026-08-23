@@ -317,18 +317,31 @@ directory counts rather than hit parsing, since a parse wobble would change a pr
 even when the numerator is zero.
 
 **Present in the candidate genus.** Glucose-6-phosphate dehydrogenase in 100 of 105,
-6-phosphogluconate dehydrogenase in 101 of 105, the accessory subunit in 97 of 105. The
-pathway is also present across the free-living genera.
+6-phosphogluconate dehydrogenase in 101 of 105, the accessory subunit in 97 of 105.
+
+**Present in the free-living genera.** Across 146 free-living Akkermansiaceae genomes,
+glucose-6-phosphate dehydrogenase is in 142, 6-phosphogluconate dehydrogenase in 136, and the
+accessory subunit in 122. Every genus carries all three: Haloferula 15 of 15, Rubritalea 11 of
+11, Luteolibacter 93 to 111 of 113 depending on the gene, and both Roseibacillus lineages
+positive.
 
 **Absent from *Akkermansia*.** 0 of 94 amphibian, 0 of 172 family reference, 0 of 60
-GTDB. 0 of 326 in total. Because the pathway is present in both the sister genus and the
-outgroups, this reads directly as loss on the *Akkermansia* branch, with no model
-required.
+GTDB. 0 of 326 in total. Because the pathway is present in both the sister genus and the outgroups, this
+reads directly as loss on the *Akkermansia* branch, with no model required.
+
+**Detection is not limiting.** A positive control was run through the same search: a GH20
+query from the candidate genus, using a gene family known to be present in *Akkermansia*. It
+returns hits at 59.5% amino acid identity in amphibian *Akkermansia* (524 aligned residues,
+E = 1e-189) and 62.8% in the GTDB set (529 residues, E = 1e-205), and recovers homologues in
+the free-living genera down to 36.0% identity. The search therefore detects diverged
+homologues of a gene that is present, so a zero for the pathway genes reflects absence rather
+than a failed search.
 
 **Physical linkage.** In the 95 candidate genomes carrying both, the dehydrogenase and
 its accessory subunit share a contig in 91, with a median intergenic gap of 20 bp (12 to
-60, all under 100) and co-orientation in all 91. 6-phosphogluconate dehydrogenase is
-unlinked.
+60, all under 100) and co-orientation in all 91. 6-phosphogluconate dehydrogenase is unlinked. The four pairs on different
+contigs are not evidence against linkage: contig breaks in metagenome-assembled genomes are
+assembly artefacts, so the same-contig count is a floor.
 
 **Not an assembly artifact.** The gut genomes are 98.0% MAGs at median completeness
 96.4%; the free-living genomes that retain the pathway are 90.7% MAGs at 93.1%. The set
