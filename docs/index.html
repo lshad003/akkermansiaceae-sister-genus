@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Placement tree browser — Akkermansiaceae sister genus</title>
+<style>
+:root{
+  --paper:#F5F6F4; --panel:#FFFFFF; --ink:#15181B; --soft:#545B60; --faint:#8B9198;
+  --rule:#DCE0DA; --hair:#EDF0EB;
+  --ehi:#C0562B; --uhm:#2E6DA4; --mix:#7B52A8; --akkAmph:#C9922B; --akkOth:#9AA0A6;
+  --free:#6B7075; --out:#15181B; --mark:#B03A48;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15px}
+#load{position:fixed;inset:0;z-index:80;background:var(--paper);display:flex;align-items:center;justify-content:center;padding:6vw}
+#load .box{max-width:60ch;text-align:center}
+#load h1{font-size:28px;margin:0 0 12px;font-weight:600}
+#load p{color:var(--soft);margin:0 0 22px;line-height:1.6}
+#drop{border:1px dashed var(--rule);border-radius:3px;background:var(--panel);padding:36px 26px;cursor:pointer;display:none}
+#drop.on{display:block}
+#drop:hover,#drop.over{border-color:var(--uhm)}
+#drop .f{font-family:var(--mono);font-size:13px;color:var(--soft)}
+#drop .h{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:8px}
+#err{color:var(--mark);font-family:var(--mono);font-size:12px;margin-top:12px;min-height:16px}
+#spin{font-family:var(--mono);font-size:12px;color:var(--faint)}
+#app{display:none;height:100%;grid-template-columns:minmax(0,1fr) minmax(340px,430px)}
+#app.on{display:grid}
+#treepane{overflow:auto;border-right:1px solid var(--rule);background:var(--panel)}
+#side{overflow-y:auto;padding:20px 24px 60px;min-width:0}
+#hd{padding:12px 16px 0}
+#hd h1{font-size:17px;margin:0 0 3px;font-weight:600}
+#hd p{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin:0 0 10px;line-height:1.6}
+#bar2{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--rule);
+  padding:9px 16px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+#bar2 button{background:none;border:1px solid var(--rule);border-radius:2px;padding:5px 9px;
+  font-family:var(--mono);font-size:11px;color:var(--soft);cursor:pointer}
+#bar2 button:hover{border-color:var(--soft);color:var(--ink)}
+#bar2 .sp{flex:1}
+#find{border:1px solid var(--rule);border-radius:2px;padding:5px 8px;font-family:var(--mono);
+  font-size:11px;background:var(--paper);color:var(--ink);width:170px}
+#find:focus{outline:none;border-color:var(--uhm)}
+svg{display:block}
+.branch{stroke:#3A4046;stroke-width:1.3;fill:none}
+.hit{stroke:transparent;stroke-width:13;fill:none;cursor:pointer}
+.branch.hi{stroke:var(--mark);stroke-width:2.4}
+.tipLab{font-family:var(--mono);font-size:11.5px;cursor:pointer;dominant-baseline:middle}
+.tipLab:hover{text-decoration:underline}
+.tipLab.dim{opacity:.3}
+.guide{stroke:var(--hair);stroke-width:1;stroke-dasharray:2 3}
+.supp{fill:#3A4046}
+.nodeHit{fill:transparent;cursor:pointer}
+.nodeDot{fill:transparent;pointer-events:none}
+.nodeDot.sel{fill:var(--mark)}
+.scale{stroke:var(--ink);stroke-width:1.4}
+.scaleTx{font-family:var(--mono);font-size:10.5px;fill:var(--soft)}
+#side h2{font-size:19px;margin:0 0 3px;font-weight:600;line-height:1.3}
+#side h2.mono{font-family:var(--mono);font-size:14px;word-break:break-all}
+#side .sub{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-bottom:18px;line-height:1.6}
+.grp{margin-bottom:20px}
+.grp h3{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 7px;font-weight:400;border-bottom:1px solid var(--rule);padding-bottom:5px}
+.kv{display:grid;grid-template-columns:145px minmax(0,1fr);gap:1px 12px;font-family:var(--mono);font-size:11px}
+.kv .k{color:var(--faint);padding:3px 0}
+.kv .v{color:var(--ink);padding:3px 0;word-break:break-word}
+.kv .v.na{color:var(--rule)}
+.pills{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.pill{font-family:var(--mono);font-size:9.5px;padding:2px 5px;border-radius:2px;border:1px solid var(--rule);color:var(--soft)}
+.pill.c{border-color:#226B5A;color:#226B5A}
+.note{font-family:var(--mono);font-size:10px;color:var(--faint);line-height:1.7;
+  border-left:2px solid var(--rule);padding-left:10px;margin-top:8px}
+.gtab{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:10.5px;margin-top:5px}
+.gtab th{text-align:left;color:var(--faint);font-weight:400;font-size:9px;letter-spacing:.09em;
+  text-transform:uppercase;border-bottom:1px solid var(--rule);padding:0 7px 5px 0}
+.gtab td{padding:4px 7px 4px 0;border-bottom:1px solid var(--hair);color:var(--soft);white-space:nowrap}
+.gtab tr{cursor:pointer}
+.gtab tr:hover td{background:var(--paper);color:var(--ink)}
+.gtab td.a{color:var(--ink)}
+.bad{color:var(--mark)}
+.back{font-family:var(--mono);font-size:10.5px;color:var(--uhm);cursor:pointer;margin-bottom:12px;display:inline-block}
+.back:hover{text-decoration:underline}
+.empty{color:var(--faint);font-family:var(--mono);font-size:12px;padding:50px 0;text-align:center}
+</style>
+</head>
+<body>
+<div id="load"><div class="box">
+  <h1>Placement tree browser</h1>
+  <p>Collapsed placement tree for a previously unnamed Akkermansiaceae genus sister to
+  <em>Akkermansia</em>. Click a tip for the genomes inside it, click a node for what its
+  members share.</p>
+  <div id="spin">loading data…</div>
+  <div id="drop"><div class="f">data.json</div><div class="h">click to choose, or drop here</div></div>
+  <div id="err"></div>
+</div></div>
+<div id="app">
+  <div id="treepane">
+    <div id="hd"><h1>Placement tree browser</h1>
+      <p>52 collapsed tips · 774 genomes · click any tip or node</p></div>
+    <div id="bar2">
+      <button id="bCand">candidate genus</button>
+      <button id="bAkk">Akkermansia</button>
+      <button id="bShared">shared ancestor</button>
+      <span class="sp"></span>
+      <input id="find" placeholder="find tip...">
+      <button id="bMode">branch lengths</button>
+    </div>
+    <div id="svgwrap"></div>
+  </div>
+  <div id="side"><div class="empty">click a tip or a node</div></div>
+</div>
+<script>
+(function(){
+var D=null,root=null,LEAVES=[],MEMB={},G={},FAMS=[],mode='phylo',selNode=null,byId={},nid=0;
+var CS=getComputedStyle(document.body);
+function cv(n){return CS.getPropertyValue(n).trim();}
+fetch('data.json').then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+  .then(boot).catch(function(){
+    document.getElementById('spin').style.display='none';
+    document.getElementById('drop').classList.add('on');});
+var drop=document.getElementById('drop'),err=document.getElementById('err');
+var pick=document.createElement('input');pick.type='file';pick.accept='.json';pick.style.display='none';
+document.body.appendChild(pick);
+drop.onclick=function(){pick.value='';pick.click();};
+pick.onchange=function(){if(pick.files[0])rd(pick.files[0]);};
+drop.ondragover=function(e){e.preventDefault();drop.classList.add('over');};
+drop.ondragleave=function(){drop.classList.remove('over');};
+drop.ondrop=function(e){e.preventDefault();if(e.dataTransfer.files[0])rd(e.dataTransfer.files[0]);};
+function rd(f){var r=new FileReader();r.onload=function(e){
+  try{boot(JSON.parse(e.target.result));}catch(x){err.textContent='parse failed: '+x.message;}};
+  r.readAsText(f);}
+function parseNewick(s){s=s.trim().replace(/;\s*$/,'');var p=0;
+  function nd(){var n={children:[]};
+    if(s[p]==='('){p++;for(;;){n.children.push(nd());
+      if(s[p]===','){p++;continue;}if(s[p]===')'){p++;break;}break;}}
+    var a=p;while(p<s.length&&':,()'.indexOf(s[p])<0)p++;n.name=s.slice(a,p);
+    if(s[p]===':'){p++;var b=p;while(p<s.length&&',()'.indexOf(s[p])<0)p++;n.len=parseFloat(s.slice(b,p));}
+    if(n.len==null||isNaN(n.len))n.len=0;return n;}
+  return nd();}
+function colOf(nm){
+  if(nm.indexOf('NOVEL_')===0){
+    if(nm.indexOf('_EHI_')>=0)return cv('--ehi');
+    if(nm.indexOf('_UHM_')>=0)return cv('--uhm');return cv('--mix');}
+  if(nm.indexOf('Akkermansia_')===0)return nm.indexOf('amphibian')>=0?cv('--akkAmph'):cv('--akkOth');
+  if(nm.indexOf('OUTGROUP')===0)return cv('--out');return cv('--free');}
+function pretty(n){return n.replace(/_/g,' ');}
+function boot(d){
+  if(!d.newick||!d.members){err.textContent='file missing newick or members';return;}
+  D=d;MEMB=d.members;G=d.genomes||{};FAMS=d.families||[];
+  root=parseNewick(d.newick);LEAVES=[];
+  (function w(n){if(!n.children.length){LEAVES.push(n);return;}n.children.forEach(w);})(root);
+  nid=0;byId={};(function ix(n){n._id=nid++;byId[n._id]=n;n.children.forEach(ix);})(root);
+  document.getElementById('load').style.display='none';
+  document.getElementById('app').classList.add('on');
+  document.getElementById('hd').querySelector('p').textContent=
+    LEAVES.length+' collapsed tips \u00b7 '+Object.keys(G).length+' genomes \u00b7 click any tip or node';
+  draw();}
+function draw(){
+  var ROWH=23,PADT=20,PADL=18,LABW=330;
+  var W=document.getElementById('treepane').clientWidth-LABW-PADL-30;if(W<250)W=250;
+  var y=0;
+  (function aY(n){if(!n.children.length){n.y=PADT+y*ROWH;y++;return n.y;}
+    var ys=n.children.map(aY);n.y=(Math.min.apply(null,ys)+Math.max.apply(null,ys))/2;return n.y;})(root);
+  var maxD=0;
+  (function dp(n,a,l){n._d=a;n._lvl=l;if(a>maxD)maxD=a;
+    n.children.forEach(function(c){dp(c,a+(c.len||0),l+1);});})(root,0,0);
+  var maxL=0;(function ml(n){if(n._lvl>maxL)maxL=n._lvl;n.children.forEach(ml);})(root);
+  function X(n){return PADL+(mode==='phylo'?(n._d/(maxD||1)):(n._lvl/(maxL||1)))*W;}
+  var H=PADT+LEAVES.length*ROWH+66,p=[];
+  p.push('<svg width="'+(PADL+W+LABW)+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg">');
+  (function rn(n,px){var x=X(n);
+    p.push('<path class="hit" data-id="'+n._id+'" d="M'+px+','+n.y+'H'+x+'"/>');
+    p.push('<path class="branch" id="br'+n._id+'" d="M'+px+','+n.y+'H'+x+'"/>');
+    if(n.children.length){var ys=n.children.map(function(c){return c.y;});
+      p.push('<path class="branch" d="M'+x+','+Math.min.apply(null,ys)+'V'+Math.max.apply(null,ys)+'"/>');
+      var sp=(n.name||'').split('/');
+      if(sp.length===2){var a=parseFloat(sp[0]),b=parseFloat(sp[1]);
+        if(!isNaN(a)&&!isNaN(b)&&a>=80&&b>=95)p.push('<circle class="supp" cx="'+x+'" cy="'+n.y+'" r="2.6"/>');}
+      p.push('<circle class="nodeHit" data-node="'+n._id+'" cx="'+x+'" cy="'+n.y+'" r="9"/>');
+      p.push('<circle class="nodeDot" id="nd'+n._id+'" cx="'+x+'" cy="'+n.y+'" r="4.5"/>');
+      n.children.forEach(function(c){rn(c,x);});
+    }else{var lx=PADL+W+12;
+      p.push('<path class="guide" d="M'+(x+3)+','+n.y+'H'+(lx-5)+'"/>');
+      p.push('<text class="tipLab" data-tip="'+n._id+'" x="'+lx+'" y="'+n.y+'" fill="'+colOf(n.name)+'">'+pretty(n.name)+'</text>');}
+  })(root,PADL);
+  if(mode==='phylo'){var u=0.25,px=u/(maxD||1)*W,yb=H-30;
+    p.push('<path class="scale" d="M'+PADL+','+yb+'H'+(PADL+px)+'"/>');
+    p.push('<text class="scaleTx" x="'+PADL+'" y="'+(yb+15)+'">'+u+' substitutions per site</text>');}
+  p.push('</svg>');
+  document.getElementById('svgwrap').innerHTML=p.join('');
+  [].forEach.call(document.querySelectorAll('.tipLab'),function(e){
+    e.onclick=function(){var n=byId[e.dataset.tip];showTip(n);hi(n);};});
+  [].forEach.call(document.querySelectorAll('.nodeHit'),function(e){
+    e.onclick=function(){var n=byId[e.dataset.node];showClade(n);hi(n);};});
+  [].forEach.call(document.querySelectorAll('.hit'),function(e){
+    e.onclick=function(){var n=byId[e.dataset.id];
+      if(n.children.length)showClade(n);else showTip(n);hi(n);};});
+}
+function hi(n){
+  [].forEach.call(document.querySelectorAll('.branch.hi'),function(e){e.classList.remove('hi');});
+  [].forEach.call(document.querySelectorAll('.nodeDot.sel'),function(e){e.classList.remove('sel');});
+  (function w(x){var b=document.getElementById('br'+x._id);if(b)b.classList.add('hi');x.children.forEach(w);})(n);
+  var d=document.getElementById('nd'+n._id);if(d)d.classList.add('sel');selNode=n;}
+function tipsUnder(n){var o=[];(function w(x){if(!x.children.length){o.push(x);return;}x.children.forEach(w);})(n);return o;}
+function genomesUnder(n){var o=[];tipsUnder(n).forEach(function(t){
+  (MEMB[t.name]||[]).forEach(function(a){if(G[a])o.push(G[a]);});});return o;}
+function rng(a,k,d){var v=a.map(function(x){return x[k];}).filter(function(x){return x!=null;});
+  if(!v.length)return null;v.sort(function(p,q){return p-q;});
+  return {n:v.length,s:v[0].toFixed(d)+' \u2013 '+v[v.length-1].toFixed(d)+'   med '+v[Math.floor(v.length/2)].toFixed(d)};}
+function cnt(a,k){var c={};a.forEach(function(x){if(x[k])c[x[k]]=(c[x[k]]||0)+1;});
+  return Object.keys(c).sort(function(p,q){return c[q]-c[p];}).map(function(z){return z+' '+c[z];});}
+function kv(rows){var h='<div class="kv">';rows.forEach(function(r){
+  h+='<div class="k">'+r[0]+'</div>'+(r[1]==null||r[1]===''?'<div class="v na">\u2014</div>':'<div class="v'+(r[2]||'')+'">'+r[1]+'</div>');});
+  return h+'</div>';}
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+function coreBlock(gs){
+  var pr=gs.filter(function(g){return g.fam;});
+  if(!pr.length)return '<div class="grp"><h3>Enzyme repertoire</h3><div class="note">No profiles for these genomes. Profiles cover the candidate genus and the Akkermansia comparison sets only.</div></div>';
+  var c=new Array(FAMS.length).fill(0);
+  pr.forEach(function(g){g.fam.forEach(function(k){c[k]++;});});
+  var core=[],com=0,va=0;
+  for(var k=0;k<FAMS.length;k++){var q=c[k]/pr.length;
+    if(q>=0.9)core.push(FAMS[k]);else if(q>=0.5)com++;else if(q>0)va++;}
+  var nf=rng(pr,'nfam',1),np=rng(pr,'nprot',1);
+  var h='<div class="grp"><h3>Enzyme repertoire</h3>'+kv([['profiled',pr.length+' of '+gs.length],
+    ['families / genome',nf?nf.s:null],['proteins / genome',np?np.s:null],
+    ['core, at least 90%',String(core.length)],['common, 50 to 90%',String(com)],
+    ['variable, under 50%',String(va)]]);
+  if(core.length)h+='<div class="pills">'+core.map(function(f){return '<span class="pill c">'+esc(f)+'</span>';}).join('')+'</div>';
+  if(pr.length<gs.length)h+='<div class="note">Percentages are of profiled genomes only.</div>';
+  return h+'</div>';}
+function guncBlock(gs){
+  var g=gs.filter(function(x){return x.gunc!=null;});if(!g.length)return '';
+  var f=g.filter(function(x){var p=String(x.gunc).toLowerCase();
+    return !(p==='true'||p==='pass'||p==='1'||p==='yes');});
+  var rr=rng(gs,'rrs',3);
+  return '<div class="grp"><h3>Chimerism screen</h3>'+kv([['screened',g.length+' of '+gs.length],
+    ['passing',(g.length-f.length)+' of '+g.length,f.length?' bad':''],
+    ['reference representation',rr?rr.s:null]])+'</div>';}
+function showTip(n){
+  var mem=MEMB[n.name]||[],gs=mem.map(function(a){return G[a];}).filter(Boolean);
+  var S=document.getElementById('side');
+  var h='<h2 class="mono" style="color:'+colOf(n.name)+'">'+esc(pretty(n.name))+'</h2>'+
+    '<div class="sub">collapsed tip \u00b7 '+mem.length+' genome'+(mem.length===1?'':'s')+'</div>';
+  h+='<div class="grp"><h3>Composition</h3>'+kv([['host classes',cnt(gs,'host_class').join(', ')],
+    ['hosts',cnt(gs,'animal').slice(0,5).join(', ')],['datasets',cnt(gs,'dataset').join(', ')],
+    ['species clusters',cnt(gs,'cluster').slice(0,6).join(', ')],
+    ['captivity',cnt(gs,'captivity').join(', ')]])+'</div>';
+  var mb=rng(gs,'mb',2),gc=rng(gs,'gc',2),cp=rng(gs,'compl',1),aa=rng(gs,'aai',2),rd=rng(gs,'red',4);
+  h+='<div class="grp"><h3>Genomic range</h3>'+kv([['size, Mb',mb?mb.s:null],['GC %',gc?gc.s:null],
+    ['completeness %',cp?cp.s:null],['AAI to type %',aa?aa.s:null],
+    ['rel. evol. divergence',rd?rd.s:null]])+'</div>';
+  h+=coreBlock(gs)+guncBlock(gs);
+  h+='<div class="grp"><h3>Member genomes</h3><table class="gtab"><tr><th>accession</th><th>host</th><th>Mb</th><th>compl</th><th>fam</th></tr>';
+  gs.forEach(function(g){h+='<tr data-a="'+esc(g.acc)+'"><td class="a">'+esc(g.acc)+'</td><td>'+
+    esc(g.host_class||'')+'</td><td>'+(g.mb!=null?g.mb.toFixed(2):'\u2014')+'</td><td>'+
+    (g.compl!=null?g.compl.toFixed(0):'\u2014')+'</td><td>'+(g.nfam!=null?g.nfam.toFixed(0):'\u2014')+'</td></tr>';});
+  h+='</table></div>';
+  S.innerHTML=h;S.scrollTop=0;
+  [].forEach.call(S.querySelectorAll('.gtab tr[data-a]'),function(tr){
+    tr.onclick=function(){showGenome(G[tr.dataset.a],n);};});}
+function showClade(n){
+  var tips=tipsUnder(n),gs=genomesUnder(n),S=document.getElementById('side');
+  var sp=(n.name||'').split('/');
+  var h='<h2>Clade of '+tips.length+' tips</h2><div class="sub">'+gs.length+' genomes'+
+    (sp.length===2?' \u00b7 support '+esc(n.name):'')+'</div>';
+  h+='<div class="grp"><h3>Tips</h3><div class="pills">'+tips.map(function(t){
+    return '<span class="pill" style="border-color:'+colOf(t.name)+';color:'+colOf(t.name)+'">'+esc(pretty(t.name))+'</span>';}).join('')+'</div></div>';
+  h+='<div class="grp"><h3>Composition</h3>'+kv([['host classes',cnt(gs,'host_class').join(', ')],
+    ['datasets',cnt(gs,'dataset').join(', ')],['GTDB genera',cnt(gs,'genus').slice(0,6).join(', ')]])+'</div>';
+  var mb=rng(gs,'mb',2),gc=rng(gs,'gc',2),cp=rng(gs,'compl',1),aa=rng(gs,'aai',2);
+  h+='<div class="grp"><h3>Genomic range</h3>'+kv([['size, Mb',mb?mb.s:null],['GC %',gc?gc.s:null],
+    ['completeness %',cp?cp.s:null],['AAI to type %',aa?aa.s:null]])+'</div>';
+  h+=coreBlock(gs)+guncBlock(gs);S.innerHTML=h;S.scrollTop=0;}
+function showGenome(g,parent){
+  if(!g)return;var S=document.getElementById('side');
+  var p=String(g.gunc).toLowerCase(),isP=(p==='true'||p==='pass'||p==='1'||p==='yes');
+  var h='<span class="back" id="bk">\u2190 back to '+esc(pretty(parent.name))+'</span>'+
+    '<h2 class="mono">'+esc(g.acc)+'</h2><div class="sub">'+esc(g.genus||'')+' \u00b7 '+esc(g.dataset||'')+'</div>';
+  h+='<div class="grp"><h3>Host</h3>'+kv([['host class',esc(g.host_class)],['host',esc(g.host)],
+    ['animal',esc(g.animal)],['captivity',esc(g.captivity)],['organism',esc(g.organism)]])+'</div>';
+  h+='<div class="grp"><h3>Assembly</h3>'+kv([['size',g.mb!=null?g.mb.toFixed(2)+' Mb':null],
+    ['GC',g.gc!=null?g.gc.toFixed(2)+'%':null],['completeness',g.compl!=null?g.compl.toFixed(2)+'%':null],
+    ['contamination',g.contam!=null?g.contam.toFixed(2)+'%':null],
+    ['contigs',g.contigs!=null?String(g.contigs):null]])+'</div>';
+  if(g.gunc!=null)h+='<div class="grp"><h3>Chimerism</h3>'+kv([['GUNC',isP?'pass':'FAIL',isP?'':' bad'],
+    ['clade separation',g.css!=null?g.css.toFixed(2):null],
+    ['reference representation',g.rrs!=null?g.rrs.toFixed(3):null]])+'</div>';
+  h+='<div class="grp"><h3>Placement</h3>'+kv([['species cluster',g.cluster?esc(g.cluster)+' ('+g.cluster_n+')':null],
+    ['AAI to type',g.aai!=null?g.aai.toFixed(2)+'%':null],
+    ['reciprocal best hits',g.rbh!=null?String(g.rbh):null],
+    ['rel. evol. divergence',g.red!=null?g.red.toFixed(4):null]])+
+    (g.aai!=null&&g.aai<65?'<div class="note">Below the 65% guideline of Dali et al. 2026. Values between 60 and 65% form a continuum in this set rather than a discrete boundary.</div>':'')+'</div>';
+  if(g.fam)h+='<div class="grp"><h3>Enzyme families</h3>'+kv([['families',g.nfam!=null?String(g.nfam):null],
+    ['proteins',g.nprot!=null?String(g.nprot):null]])+'<div class="pills">'+
+    g.fam.map(function(k){return '<span class="pill">'+esc(FAMS[k])+'</span>';}).join('')+'</div></div>';
+  S.innerHTML=h;S.scrollTop=0;
+  document.getElementById('bk').onclick=function(){showTip(parent);};}
+function findNode(test){var best=null;
+  (function w(n){var t=tipsUnder(n);
+    if(test(t)&&(!best||t.length<tipsUnder(best).length))best=n;n.children.forEach(w);})(root);
+  return best;}
+function jump(n){if(!n)return;hi(n);showClade(n);
+  var e=document.getElementById('nd'+n._id);
+  if(e){var r=e.getBoundingClientRect(),p=document.getElementById('treepane');
+    p.scrollTop+=r.top-p.clientHeight/2;}}
+document.getElementById('bCand').onclick=function(){jump(findNode(function(t){
+  return t.length>1&&t.every(function(x){return x.name.indexOf('NOVEL_')===0;});}));};
+document.getElementById('bAkk').onclick=function(){jump(findNode(function(t){
+  return t.length>1&&t.every(function(x){return x.name.indexOf('Akkermansia_')===0;});}));};
+document.getElementById('bShared').onclick=function(){jump(findNode(function(t){
+  var a=t.filter(function(x){return x.name.indexOf('NOVEL_')===0;}).length;
+  var b=t.filter(function(x){return x.name.indexOf('Akkermansia_')===0;}).length;
+  return a>0&&b>0&&a+b===t.length;}));};
+document.getElementById('bMode').onclick=function(){
+  mode=(mode==='phylo'?'clado':'phylo');
+  this.textContent=(mode==='phylo'?'branch lengths':'even spacing');
+  draw();if(selNode)hi(selNode);};
+document.getElementById('find').oninput=function(){var q=this.value.trim().toLowerCase();
+  [].forEach.call(document.querySelectorAll('.tipLab'),function(e){
+    e.classList.toggle('dim',!!q&&e.textContent.toLowerCase().indexOf(q)<0);});};
+window.addEventListener('resize',function(){if(root){draw();if(selNode)hi(selNode);}});
+})();
+</script>
+</body>
+</html>
