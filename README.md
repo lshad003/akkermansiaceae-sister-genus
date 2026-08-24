@@ -156,6 +156,26 @@ rRNA, 21 tRNA amino acid types, from a wild newt. It ranks 23rd of 105 by distan
 high-quality representative rather than the most typical genome. It belongs to a
 15-genome species cluster, not to the reduced cluster described below.
 
+**Cluster-to-cluster divergence.** A concurrent genome-scale revision of the family
+proposes genus thresholds of about 65% amino acid identity and 50% conserved proteins, and
+applies them to divide *Akkermansia* on inter-clade identities of 60.8 to 63.7%. Measured
+against the same thresholds, the candidate genus sits at 56.6% to *Akkermansia*, below both,
+and its conserved-protein value of 51.8% is comparable to the 50.9 to 53.3% on which part of
+that division rests.
+
+Applied within the candidate set, the threshold identifies internal structure. Amino acid
+identity between representatives of the 17 species clusters spans 59.95 to 95.79% across 136
+pairs. Three units fall below 65% to the remainder: one cluster of 18 genomes, a group of
+three clusters totalling 7 genomes, and one divergent genome. Values between 60 and 65% form
+a continuum rather than a discrete boundary, and the largest gaps in the matrix, 7.05 and 6.3
+points, fall at high identity where species boundaries lie. The *Akkermansia* genomes examined
+in that revision spanned 60.8 to 99.96% and were treated as one genus, although those
+estimates were generated with EzAAI whereas the values here use reciprocal best hits under
+DIAMOND, so the two are not strictly calibrated against each other. The clade is retained as a
+single genus on the basis of topology and relative evolutionary divergence, with identity
+metrics as quantitative support; whether the most divergent clusters warrant separate
+recognition is left to denser sampling.
+
 **Reduced genomes.** The count depends on the criterion. Under an either-or rule, median
 GC below 45.5% or median size below 2.6 Mb, seven clusters and 34 genomes qualify. Only
 one cluster is reduced in both dimensions: 18 genomes at 2.19 Mb and 43.7% GC. The other
@@ -178,6 +198,9 @@ six, 16 genomes between them, fall below one threshold only.
 | `jobs/66_run_within_genus_aai.sh` | Within-genus identity calculation submitted |
 | `scripts/65_within_genus_aai.py` | Amino acid identity of every candidate genome to the type genome |
 | `scripts/81_type_genome_candidates.py` | Type genome candidates ranked against the description criteria |
+| `scripts/87_pick_cluster_reps.py` | Species cluster representatives selected by completeness |
+| `jobs/88_run_cluster_aai.sh` | Cluster-to-cluster identity searches submitted |
+| `scripts/89_compute_cluster_aai.py` | Cluster-to-cluster identity matrix computed from reciprocal best hits |
 | `scripts/83_step3_red_values.py` | Genus-level novelty confirmed from classifier divergence values |
 
 Note: the POCP reported is the one from `scripts/18_pocp_fixed.py`. The value
