@@ -222,8 +222,10 @@ loss earlier.
 criteria. Each criterion is explicit: loss on the *Akkermansia* branch requires presence in at
 least 70% of candidate clusters, at most 10% of *Akkermansia*, and at least three free-living
 genera; loss at the shared ancestor requires at most 5% in both gut genera and presence in at
-least five free-living genera. The dominant event is not on the *Akkermansia* branch: 1,047
-were lost at the ancestor shared by both gut genera, against 57 on the *Akkermansia* branch.
+least five free-living genera. The dominant pattern is not on the *Akkermansia* branch: 1,047 orthogroups have a
+distribution consistent with loss on the branch ancestral to both gut genera, against 57
+consistent with loss on the *Akkermansia* branch. These are polarity assignments from
+occupancy thresholds, not directly reconstructed events.
 1,026 are retained across the gut clade, 55 are candidate-specific, 34 enriched in
 *Akkermansia*.
 
@@ -304,9 +306,9 @@ entire sister lineage tested here. The annotation method matches: the same enzym
 models at the same evidence threshold, with an additional coverage filter applied here, so
 this comparison is at least as conservative as the one it addresses.
 
-**Main result.** The candidate genus carries the mucin-degradation toolkit in full. Twelve
-families were retained for the panel by a 10% prevalence floor, which is a selection criterion
-rather than a result. Within that panel the candidate genus carries every family, at 86.7 to
+**Main result.** The mucin-associated repertoire characteristic of Akkermansia is largely
+conserved in the candidate genus. Twelve families were retained for the panel by a 10%
+prevalence floor, which is a selection criterion rather than a result. Within that panel the candidate genus carries every family, at 86.7 to
 100% prevalence, median 94.8%, against group medians of 97.2 to 98.5% in the four Akkermansia
 groups, with GH2, GH20, GH95 and GH109 at 100%. Four families reported absent from both the Akkermansia ancestor and
 Akkermansia genomes are at or below 1.9% in both gut lineages here (GH85, GH98 and GH129 at
