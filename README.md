@@ -356,10 +356,10 @@ Output: `figures/Figure_mucin_conservation.pdf`
 
 ### Step 6. Loss of the oxidative pentose phosphate pathway in Akkermansia
 
-The three pathway genes are scored across the candidate genus, three separate
-*Akkermansia* collections, and the free-living genera. Denominators come from database
-directory counts rather than hit parsing, since a parse wobble would change a prevalence
-even when the numerator is zero.
+The three pathway genes are scored across the candidate genus, all *Akkermansia* genomes, and
+the free-living genera. Both the numerator and the denominator are taken from a single search
+against a genus-defined proteome set, run alongside a positive control, because an absence read
+from an empty or missing hit table is indistinguishable from an absence that was searched for.
 
 **Present in the candidate genus.** Glucose-6-phosphate dehydrogenase in 100 of 105,
 6-phosphogluconate dehydrogenase in 101 of 105, the accessory subunit in 97 of 105.
@@ -370,8 +370,13 @@ accessory subunit in 122. Every genus carries all three: Haloferula 15 of 15, Ru
 11, Luteolibacter 93 to 111 of 113 depending on the gene, and both Roseibacillus lineages
 positive.
 
-**Absent from *Akkermansia*.** 0 of 94 amphibian, 0 of 172 family reference, 0 of 60
-GTDB. 0 of 326 in total. Because the pathway is present in both the sister genus and the outgroups, this
+**Absent from *Akkermansia*.** None of the three genes is present in any of the 187 genomes
+that GTDB assigns to *Akkermansia*, the same 187 that form the *Akkermansia* clade in Step 2.
+The set is defined by genus assignment rather than by database membership, since several
+free-living Akkermansiaceae carry *Akkermansia* species names in NCBI while GTDB places them in
+*Luteolibacter*, *Haloferula* or UBA956. A positive control run on the same proteomes recovers a
+known enzyme family in 186 of the 187, and the pathway search returns nothing under either a
+strict threshold or a sensitive search at an E-value of 1. Because the pathway is present in both the sister genus and the outgroups, this
 reads directly as loss on the *Akkermansia* branch, with no model required.
 
 **Detection is not limiting.** A positive control was run through the same search: a GH20
@@ -395,7 +400,7 @@ lacking the pathway is the better-assembled one.
 | File | Purpose |
 |---|---|
 | `scripts/45_build_ppp_presence.py` | Pathway genes scored across collections |
-| `scripts/46_fix_ppp_326.py` | Presence table rebuilt with corrected collection denominators |
+| `scripts/46_fix_ppp_326.py` | Earlier presence table, superseded by the genus-defined search below |
 | `scripts/47_check_akk_denominator.py` | Collection denominators verified against database directories |
 | `scripts/48_measure_ppp_operon2.py` | Operon adjacency and intergenic gap measured |
 | `scripts/49_check_ppp_strand.py` | Operon co-orientation checked |
@@ -405,6 +410,7 @@ lacking the pathway is the better-assembled one.
 | `scripts/84_id_ppp_trio.py` | Pathway query proteins identified by sequence motif and length |
 | `scripts/85_ppp_freeliving_per_gene.py` | Pathway prevalence per gene across the free-living genera |
 | `scripts/86_ppp_operon_tee.py` | Operon adjacency, intergenic gap and co-orientation written to file |
+| `jobs/92_rebuild_ppp_akkermansia.sh` | Pathway search rerun against a genus-defined Akkermansia set with a positive control |
 
 Output: `figures/Figure_ppp_loss.pdf`, `figures/Figure_ppp_operon.pdf`
 
