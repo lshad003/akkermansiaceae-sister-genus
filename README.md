@@ -26,8 +26,19 @@ so they were excluded on evidence rather than by a decision taken in advance. Th
 leaves 105 MAGs: 54 from the herptile catalogue, 51 from EHI, representing 66 host
 animals.
 
-**Host range.** All 105 are amphibian. This follows from the exclusion and from the
-amphibian-weighted catalogues, so it describes where we sampled and not host specificity.
+**Host range.** All 105 are amphibian, and this was tested rather than assumed. Across the
+full census, 107 Akkermansiaceae genomes carry no genus assignment: 105 from amphibians and the
+two tortoise genomes excluded above. *Akkermansia* itself is recovered from 350 genomes in the
+same census, spanning 137 reptile, 94 amphibian, 71 mammal, five bird and one fish, so the family
+is sampled across vertebrate classes while the candidate genus is not.
+
+The Earth Hologenome Initiative collection provides an independent test. Of its 17,666 MAGs,
+comprising 8,208 from reptiles, 6,244 from mammals, 3,020 from amphibians and 194 from birds, 256
+are Akkermansiaceae and 51 carry no genus assignment. All 51 are amphibian, and all 51 fall within
+the candidate genus by amino acid identity to the type genome. Amphibian sampling in that
+collection is narrow, however, covering only *Lissotriton helveticus* and *Calotriton asper*, so
+the result bounds the absence of the genus from other host classes rather than establishing its
+breadth across amphibians.
 
 **Quality.** Median completeness 96.6% (51.2 to 100.0). These values are of mixed
 provenance: CheckM v1 for the 54 herptile MAGs, upstream quality control for the 51 EHI
@@ -52,6 +63,7 @@ the repertoire would produce.
 | `scripts/06_verify_novel_qc.py` | Completeness and contamination verified for the candidate set |
 | `scripts/07_reconcile_captivity.py` | Wild and captive status reconciled across metadata sources |
 | `scripts/82_check_novel_107_vs_105.py` | Candidate set counted before and after the non-amphibian exclusion |
+| `scripts/90_host_range_test.py` | Host range tested against the full census and the independent EHI collection |
 | `scripts/64_tortoise_exclusion_aai.py` | Non-amphibian genomes excluded by amino acid identity to the type genome |
 | `jobs/70_run_gunc_199.sh` | Chimerism screening submitted for the candidate and sister genomes |
 | `scripts/71_gunc_audit_199.py` | Chimerism screening results audited by arm |
@@ -147,12 +159,18 @@ distinct pairs. Within-genus amino acid identity to the type genome runs 60.3 to
 89.9%.
 
 **Genome description.** Median size 3.04 Mb (1.42 to 4.01), median GC 49.05% (43.46 to
-52.72). Five genomes meet the MIMAG high-quality standard. That count is limited by ribosomal
-RNA recovery rather than by completeness: the standard requires 5S, 16S and 23S to be
-assembled, and short-read metagenome assemblies recover ribosomal operons poorly.
+52.72). Three genomes meet the MIMAG high-quality standard. Five satisfy it on the
+stated criteria, but the ribosomal RNA of two proves not to belong to the genome: both carry only
+a short partial 16S fragment, 456 and 526 bp, on contigs of 9.5 kb and 1.9 kb, sharing 0.03 and
+0.09 of their 12-mers with verified genus sequences. The count is limited by ribosomal RNA
+recovery rather than by completeness, since the standard requires 5S, 16S and 23S to be assembled
+and short-read metagenome assemblies recover ribosomal operons poorly.
 
 **Type genome.** 3.29 Mb, 49.07% GC, 100% complete, 0.17% contamination, 5S, 16S and 23S
-rRNA, 21 tRNA amino acid types, from a wild newt. It ranks 23rd of 105 by distance to the set median, so it is a
+rRNA, 21 tRNA amino acid types, from a wild newt. It carries two complete ribosomal operons on
+separate contigs. The operon on the 65 kb contig is the genome's own, sharing 0.79 of its 12-mers
+with verified genus sequences; the operon on a 7.7 kb contig shares 0.17 and is a misbinned
+fragment, which is excluded from the deposited assembly. It ranks 23rd of 105 by distance to the set median, so it is a
 high-quality representative rather than the most typical genome. It belongs to a
 15-genome species cluster, not to the reduced cluster described below.
 
@@ -193,6 +211,7 @@ six, 16 genomes between them, fall below one threshold only.
 | `scripts/23_compute_novel_size_gc.py` | Genome size and GC computed from assemblies |
 | `jobs/24_run_mimag_105.sh` | rRNA and tRNA features called for the candidate set |
 | `scripts/25_verify_mimag_count2.py` | High-quality genome count verified against the MIMAG standard |
+| `scripts/91_verify_hq_16s.py` | Ribosomal RNA of the high-quality genomes checked for provenance |
 | `scripts/26_check_type_genome_median.py` | Type genome checked against the set median |
 | `scripts/27_check_reduced_cluster.py` | Reduced-genome clusters characterized |
 | `jobs/66_run_within_genus_aai.sh` | Within-genus identity calculation submitted |
