@@ -32,8 +32,9 @@ two tortoise genomes excluded above. *Akkermansia* itself is recovered from 350 
 same census, spanning 137 reptile, 94 amphibian, 71 mammal, five bird and one fish, so the family
 is sampled across vertebrate classes while the candidate genus is not.
 
-The Earth Hologenome Initiative collection provides an independent test. Of its 17,666 MAGs,
-comprising 8,208 from reptiles, 6,244 from mammals, 3,020 from amphibians and 194 from birds, 256
+The Earth Hologenome Initiative collection provides an independent test. Of its 17,666
+MAGs, spanning 33 phyla and comprising 8,208 from reptiles, 6,244 from mammals, 3,020 from
+amphibians and 194 from birds, 368 are Verrucomicrobiota, of which 140 come from reptiles. 256
 are Akkermansiaceae and 51 carry no genus assignment. All 51 are amphibian, and all 51 fall within
 the candidate genus by amino acid identity to the type genome. Amphibian sampling in that
 collection is narrow, however, covering only *Lissotriton helveticus* and *Calotriton asper*, so
