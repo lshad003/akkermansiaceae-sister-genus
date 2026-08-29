@@ -32,14 +32,33 @@ two tortoise genomes excluded above. *Akkermansia* itself is recovered from 350 
 same census, spanning 137 reptile, 94 amphibian, 71 mammal, five bird and one fish, so the family
 is sampled across vertebrate classes while the candidate genus is not.
 
-The Earth Hologenome Initiative collection provides an independent test. Of its 17,666
-MAGs, spanning 33 phyla and comprising 8,208 from reptiles, 6,244 from mammals, 3,020 from
-amphibians and 194 from birds, 368 are Verrucomicrobiota, of which 140 come from reptiles. 256
-are Akkermansiaceae and 51 carry no genus assignment. All 51 are amphibian, and all 51 fall within
-the candidate genus by amino acid identity to the type genome. Amphibian sampling in that
-collection is narrow, however, covering only *Lissotriton helveticus* and *Calotriton asper*, so
-the result bounds the absence of the genus from other host classes rather than establishing its
-breadth across amphibians.
+The Earth Hologenome Initiative collection provides an independent genome-level test. Of its
+17,666 MAGs, spanning 33 phyla and comprising 8,208 from reptiles, 6,244 from mammals, 3,020
+from amphibians and 194 from birds, 368 are Verrucomicrobiota, of which 140 come from reptiles.
+256 are Akkermansiaceae and 51 carry no genus assignment. All 51 are amphibian, and all 51 fall
+within the candidate genus by amino acid identity to the type genome.
+
+**Amplicon data show enrichment rather than restriction.** Genome recovery requires a taxon to
+reach assembly depth, so a genome census cannot distinguish absence from low abundance. An
+independent 16S amplicon survey of 991 herpetofaunal gut samples resolves this. Twenty-nine
+sequence variants match the genus at 97% identity or above, seven of them exactly, recovered by
+four genomes from both source collections. The marker separates the two genera: a 16S from the
+*Akkermansia* type strain shares no variant with the candidate genus at that threshold, and the
+survey's own reference-database assignment places all twenty-nine in Akkermansiaceae.
+
+The genus is present in 280 of the 991 samples across 87 host species, and its abundance differs
+sharply by host class. Among positive samples the median share of the community is 0.83% in
+salamanders and 0.54% in frogs, against 0.13% in squamates and 0.02% in turtles. It exceeds 1% of
+the community in 81 salamander and 23 frog samples, against two squamate and no turtle samples,
+and reaches 42.9% in one wild *Desmognathus fuscus*. Neither sequencing depth nor captivity
+explains the difference: squamate samples were sequenced more deeply than amphibian samples, and
+wild and captive squamates are positive at the same rate.
+
+The two datasets therefore agree. A lineage present at a median of 0.13% of reads cannot be
+assembled into a genome, which is why no candidate genome was recovered from 8,208 reptile MAGs,
+while abundances of 0.83 to 42.9% in amphibians support genome recovery. The genus is a prevalent
+and often dominant member of amphibian gut communities and occurs at trace abundance in a
+minority of reptiles.
 
 **Quality.** Median completeness 96.6% (51.2 to 100.0). These values are of mixed
 provenance: CheckM v1 for the 54 herptile MAGs, upstream quality control for the 51 EHI
@@ -65,6 +84,9 @@ the repertoire would produce.
 | `scripts/07_reconcile_captivity.py` | Wild and captive status reconciled across metadata sources |
 | `scripts/82_check_novel_107_vs_105.py` | Candidate set counted before and after the non-amphibian exclusion |
 | `scripts/90_host_range_test.py` | Host range tested against the full census and the independent EHI collection |
+| `scripts/93_search_rurik_16s.sh` | Candidate 16S matched against an independent amplicon survey |
+| `scripts/94_v4_control.sh` | Marker resolution between the candidate genus and *Akkermansia* confirmed |
+| `scripts/95_rurik_relative_abundance.py` | Relative abundance of the genus by host order |
 | `scripts/64_tortoise_exclusion_aai.py` | Non-amphibian genomes excluded by amino acid identity to the type genome |
 | `jobs/70_run_gunc_199.sh` | Chimerism screening submitted for the candidate and sister genomes |
 | `scripts/71_gunc_audit_199.py` | Chimerism screening results audited by arm |
