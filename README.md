@@ -54,9 +54,9 @@ and reaches 42.9% in one wild *Desmognathus fuscus*. Neither sequencing depth no
 explains the difference: squamate samples were sequenced more deeply than amphibian samples, and
 wild and captive squamates are positive at the same rate.
 
-The two datasets therefore agree. A lineage present at a median of 0.13% of reads cannot be
-assembled into a genome, which is why no candidate genome was recovered from 8,208 reptile MAGs,
-while abundances of 0.83 to 42.9% in amphibians support genome recovery. The genus is a prevalent
+The two datasets therefore agree (`Figure_host_abundance`). A lineage present at a median of 0.13% of reads
+cannot be assembled into a genome, which is why no candidate genome was recovered from 8,208
+reptile MAGs, while abundances of 0.83 to 42.9% in amphibians support genome recovery. The genus is a prevalent
 and often dominant member of amphibian gut communities and occurs at trace abundance in a
 minority of reptiles.
 
@@ -82,16 +82,18 @@ the repertoire would produce.
 | `scripts/05_recount_host_animals_corrected_unit.py` | Host animals recounted under the corrected animal unit |
 | `scripts/06_verify_novel_qc.py` | Completeness and contamination verified for the candidate set |
 | `scripts/07_reconcile_captivity.py` | Wild and captive status reconciled across metadata sources |
+| `scripts/64_tortoise_exclusion_aai.py` | Non-amphibian genomes excluded by amino acid identity to the type genome |
+| `jobs/70_run_gunc_199.sh` | Chimerism screening submitted for the candidate and sister genomes |
+| `scripts/71_gunc_audit_199.py` | Chimerism screening results audited by arm |
 | `scripts/82_check_novel_107_vs_105.py` | Candidate set counted before and after the non-amphibian exclusion |
 | `scripts/90_host_range_test.py` | Host range tested against the full census and the independent EHI collection |
 | `scripts/93_search_rurik_16s.sh` | Candidate 16S matched against an independent amplicon survey |
 | `scripts/94_v4_control.sh` | Marker resolution between the candidate genus and *Akkermansia* confirmed |
 | `scripts/95_rurik_relative_abundance.py` | Relative abundance of the genus by host order |
-| `scripts/64_tortoise_exclusion_aai.py` | Non-amphibian genomes excluded by amino acid identity to the type genome |
-| `jobs/70_run_gunc_199.sh` | Chimerism screening submitted for the candidate and sister genomes |
-| `scripts/71_gunc_audit_199.py` | Chimerism screening results audited by arm |
+| `scripts/96_rurik_per_sample_table.py` | Per-sample abundance assembled from the amplicon survey |
+| `scripts/97_fig_host_abundance.py` | Prevalence and abundance by host order figure |
 
-Output: `tables/TableS1_genome_quality.tsv`, `tables/TableS2_chimerism.tsv`
+Output: `tables/TableS1_genome_quality.tsv`, `tables/TableS2_chimerism.tsv`, `figures/Figure_host_abundance.pdf`
 
 ### Step 2. Phylogenetic placement
 
