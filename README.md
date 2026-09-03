@@ -385,12 +385,13 @@ the free-living genera. Both the numerator and the denominator are taken from a 
 against a genus-defined proteome set, run alongside a positive control, because an absence read
 from an empty or missing hit table is indistinguishable from an absence that was searched for.
 
-**Present in the candidate genus.** Glucose-6-phosphate dehydrogenase in 100 of 105,
-6-phosphogluconate dehydrogenase in 101 of 105, the accessory subunit in 97 of 105.
+**Present in the candidate genus.** Glucose-6-phosphate dehydrogenase (*zwf*) in 100 of 105,
+6-phosphogluconate dehydrogenase (*gnd*) in 101 of 105, and an OpcA-family protein (*opcA*;
+InterPro IPR004555, with the OpcA N- and C-terminal domains IPR046801 and IPR046802) in 97 of 105.
 
 **Present in the free-living genera.** Across 146 free-living Akkermansiaceae genomes,
 glucose-6-phosphate dehydrogenase is in 142, 6-phosphogluconate dehydrogenase in 136, and the
-accessory subunit in 122. Every genus carries all three: Haloferula 15 of 15, Rubritalea 11 of
+*opcA* in 122. Every genus carries all three: Haloferula 15 of 15, Rubritalea 11 of
 11, Luteolibacter 93 to 111 of 113 depending on the gene, and both Roseibacillus lineages
 positive.
 
@@ -403,6 +404,17 @@ known enzyme family in 186 of the 187, and the pathway search returns nothing un
 strict threshold or a sensitive search at an E-value of 1. Because the pathway is present in both the sister genus and the outgroups, this
 reads directly as loss on the *Akkermansia* branch, with no model required.
 
+**Single-search confirmation.** A later search placed the candidate genus, *Akkermansia* and the
+free-living genera in one DIAMOND database of 7,572 genomes and 19,994,127 proteins, so that no
+comparison crosses runs. Under identical settings the three genes were recovered from 92.4% of the
+105 candidate genomes and 86.1% of 288 other Akkermansiaceae across 17 genera, and from none of
+331 genomes classified as *Akkermansia*, while the GH20 positive control was recovered from 325 of
+those 331. Note the two denominators: 187 is the GTDB r226 *Akkermansia* set used throughout the
+manuscript, while 331 is the larger set of *Akkermansia* proteomes available to this search. Across
+3,902 genomes from 87 bacterial families searched the same way, at least one oxidative-branch gene
+was detected in 41.6%, so loss of this pathway is common in bacteria; what is unusual here is its
+distribution rather than the loss itself.
+
 **Detection is not limiting.** A positive control was run through the same search: a GH20
 query from the candidate genus, using a gene family known to be present in *Akkermansia*. It
 returns hits at 59.5% amino acid identity in amphibian *Akkermansia* (524 aligned residues,
@@ -411,11 +423,17 @@ the free-living genera down to 36.0% identity. The search therefore detects dive
 homologues of a gene that is present, so a zero for the pathway genes reflects absence rather
 than a failed search.
 
-**Physical linkage.** In the 95 candidate genomes carrying both, the dehydrogenase and
-its accessory subunit share a contig in 91, with a median intergenic gap of 20 bp (12 to
-60, all under 100) and co-orientation in all 91. 6-phosphogluconate dehydrogenase is unlinked. The four pairs on different
-contigs are not evidence against linkage: contig breaks in metagenome-assembled genomes are
-assembly artefacts, so the same-contig count is a floor.
+**Physical linkage.** *zwf* and *opcA* are directly adjacent with no intervening coding
+sequence in all 252 genomes across 13 Akkermansiaceae genera in which both genes were assembled
+on the same contig, co-oriented and with *zwf* upstream, and with median intergenic distances of
+2 to 35 bp. *Luteolibacter* is an exception: 39 of its 82 same-contig pairs carry one or two
+intervening genes, and a further 33 genomes place the two on separate contigs at distances of up
+to 115 kb from any contig boundary, indicating lineage-specific rearrangement rather than
+fragmentation. *gnd* is unlinked. Pairs on different contigs elsewhere are not evidence against
+linkage, since contig breaks in metagenome-assembled genomes are assembly artefacts, so the
+same-contig count is a floor. The arrangement is a predicted operon; co-transcription was not
+tested. A *zwf*-*opcA* pairing is independently reported in *Mycobacterium*, *Streptomyces* and
+cyanobacteria.
 
 **Not an assembly artifact.** The gut genomes are 98.0% MAGs at median completeness
 96.4%; the free-living genomes that retain the pathway are 90.7% MAGs at 93.1%. The set
