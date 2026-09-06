@@ -92,8 +92,13 @@ the repertoire would produce.
 | `scripts/95_rurik_relative_abundance.py` | Relative abundance of the genus by host order |
 | `scripts/96_rurik_per_sample_table.py` | Per-sample abundance assembled from the amplicon survey |
 | `scripts/97_fig_host_abundance.py` | Prevalence and abundance by host order figure |
+| `scripts/98_build_table_s3_hosts.py` | Host provenance assembled at the animal level, 66 animals from 105 genomes |
+| `scripts/99_fix_table_s1_columns.py` | Type-genome column renamed and 16S validation and MIMAG status added to Table S1 |
+| `scripts/100_build_table_s4_boundary.py` | AAI and PoCP to each neighbouring genus assembled into one boundary table |
 
-Output: `tables/TableS1_genome_quality.tsv`, `tables/TableS2_chimerism.tsv`, `figures/Figure_host_abundance.pdf`
+Output: `tables/TableS1_genome_quality.tsv`, `tables/TableS2_chimerism.tsv`,
+`tables/TableS3_host_metadata.tsv`, `tables/TableS4_genus_boundary_metrics.tsv`,
+`figures/Figure_host_abundance.pdf`
 
 ### Step 2. Phylogenetic placement
 
