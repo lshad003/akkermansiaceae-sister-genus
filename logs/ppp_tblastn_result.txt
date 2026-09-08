@@ -1,0 +1,9 @@
+queries: ['zwf', 'gnd', 'opcA', 'GH20_control']
+genomes to search: 154
+contigs in database: 19622
+
+=== hits per query, and how many distinct genomes ===
+  zwf              0 of 154 genomes   best identity 0.0
+  gnd              0 of 154 genomes   best identity 0.0
+  opcA             0 of 154 genomes   best identity 0.0
+  GH20_control   154 of 154 genomes   best identity 66.1
