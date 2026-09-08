@@ -19,7 +19,7 @@ mucin.sort(key=lambda f: float(rows[f]["pct_novel"]), reverse=True)
 # EDIT these keys if the header check shows different names:
 cols=[("pct_novel","Ca. Novel genus\namphibian (105)"),
       ("pct_akk_amph","Akkermansia\namphibian (94)"),
-      ("pct_akk_podarcis","Akkermansia\nPodarcis (137)"),
+      ("pct_akk_podarcis","Akkermansia\nreptile (137)"),
       ("pct_akk_mammal","Akkermansia\nmammal (71)"),
       ("pct_akk_gtdb","Akkermansia\nGTDB (42)")]
 
@@ -35,10 +35,12 @@ for i in range(len(mucin)):
         ax.text(j,i,f"{v:.0f}",ha="center",va="center",
                 color="white" if (v>75 or v<25) else "black",fontsize=9)
 cb=fig.colorbar(im,ax=ax,fraction=0.035,pad=0.03); cb.set_label("% genomes")
-ax.set_title("Mucin-degradation machinery is conserved across all gut-associated Akkermansiaceae",
+ax.set_title("Prevalence of mucin-degrading CAZyme families across the candidate genus and Akkermansia",
              fontsize=12,pad=12)
 fig.tight_layout()
-fig.savefig(OUT,dpi=200,bbox_inches="tight")
+fig.savefig(OUT,dpi=300,bbox_inches="tight")
+fig.savefig(OUT.replace(".png",".pdf"),bbox_inches="tight")
+print("wrote",OUT.replace(".png",".pdf"))
 print("wrote",OUT)
 print("families:",mucin)
 print("median per group:")
