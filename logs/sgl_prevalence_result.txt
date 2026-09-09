@@ -1,0 +1,5 @@
+query length: 285 aa
+proteins: 19994127
+hits: 1366
+floor  0%: {'candidate': '94/105', 'Akkermansia': '0/331', 'free-living': '256/288'}  free-living genera: 16
+floor 30%: {'candidate': '94/105', 'Akkermansia': '0/331', 'free-living': '255/288'}  free-living genera: 16

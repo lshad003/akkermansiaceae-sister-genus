@@ -1,0 +1,5 @@
+queries: ['SGL_query', 'GH20_control']
+contigs: 19622
+
+  SGL_query        0 of 154 genomes   best identity 0.0
+  GH20_control   154 of 154 genomes   best identity 66.1
