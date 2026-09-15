@@ -49,7 +49,7 @@ for v in (10, 70):
     ax.axhline(v, color="#cccccc", lw=0.8, ls="--", zorder=1)
 
 for x, y, t, c in [(88, 60, "retained across\nboth gut genera\n%s" % "{:,}".format(S), "#6a6a6a"),
-                   (30, 4,  "lost at the shared\ngut ancestor\n%s" % "{:,}".format(B), RED),
+                   (30, 4,  "loss at the shared\ngut ancestor\n%s" % "{:,}".format(B), RED),
                    (22, 92, "Akkermansia\nenriched\n%d" % C, PURPLE)]:
     ax.text(x, y, t, fontsize=8.5, color=c, ha="center", va="center", linespacing=1.35,
             bbox=dict(boxstyle="round,pad=0.35", fc="#ffffff", ec="none", alpha=0.82), zorder=4)
@@ -58,7 +58,7 @@ for x, y, t, c in [(88, 60, "retained across\nboth gut genera\n%s" % "{:,}".form
 ax.text(88, 30, "present in the candidate genus,\nabsent from Akkermansia",
         fontsize=8.5, color="#4a4a4a", ha="center", va="center",
         bbox=dict(boxstyle="round,pad=0.30", fc="#ffffff", ec="none", alpha=0.82), zorder=4)
-ax.text(88, 25, "%d lost on the Akkermansia branch" % A, fontsize=8.5, color=BLUE,
+ax.text(88, 25, "%d, loss on the Akkermansia branch" % A, fontsize=8.5, color=BLUE,
         ha="center", va="center",
         bbox=dict(boxstyle="round,pad=0.22", fc="#ffffff", ec="none", alpha=0.82), zorder=4)
 ax.text(88, 20, "%d restricted to the candidate genus" % D, fontsize=8.5, color=GREEN,
@@ -76,8 +76,8 @@ ax.set_title("A   Orthogroup occupancy across %s polarized orthogroups"
              % "{:,}".format(len(rows)), fontsize=11, loc="left", pad=10)
 
 handles = [Line2D([], [], marker="o", ls="", ms=5, color=GREY,   label="retained across both gut genera (%s)" % "{:,}".format(S)),
-           Line2D([], [], marker="o", ls="", ms=5, color=RED,    label="lost at the shared gut ancestor (%s)" % "{:,}".format(B)),
-           Line2D([], [], marker="o", ls="", ms=5, color=BLUE,   label="lost on the Akkermansia branch (%d)" % A),
+           Line2D([], [], marker="o", ls="", ms=5, color=RED,    label="loss at the shared gut ancestor (%s)" % "{:,}".format(B)),
+           Line2D([], [], marker="o", ls="", ms=5, color=BLUE,   label="loss on the Akkermansia branch (%d)" % A),
            Line2D([], [], marker="o", ls="", ms=5, color=GREEN,  label="restricted to the candidate genus (%d)" % D),
            Line2D([], [], marker="o", ls="", ms=5, color=PURPLE, label="Akkermansia enriched (%d)" % C)]
 ax.legend(handles=handles, fontsize=7.5, frameon=False, loc="upper left",
@@ -94,10 +94,10 @@ ins.text(0.77, 0.92, "candidate\ngenus", fontsize=7.5, va="center", color="#3333
 ins.text(0.77, 0.62, "Akkermansia", fontsize=7.5, va="center", color="#333333", style="italic")
 ins.text(0.62, 0.14, "free-living", fontsize=7.5, va="center", color="#6a6a6a")
 ins.plot([0.35], [0.78], marker="o", ms=7, color="#ffffff", mec=RED, mew=1.7)
-ins.text(0.35, 0.99, "%s lost" % "{:,}".format(B), fontsize=7.5, color=RED,
+ins.text(0.35, 0.99, "%s" % "{:,}".format(B), fontsize=7.5, color=RED,
          ha="center", va="bottom")
 ins.plot([0.60], [0.62], marker="o", ms=7, color="#ffffff", mec=BLUE, mew=1.7)
-ins.text(0.60, 0.47, "%d lost" % A, fontsize=7.5, color=BLUE, ha="center", va="top")
+ins.text(0.60, 0.47, "%d" % A, fontsize=7.5, color=BLUE, ha="center", va="top")
 ins.set_xlim(0, 1.18); ins.set_ylim(0, 1.14); ins.axis("off")
 ins.patch.set_facecolor("#ffffff"); ins.patch.set_alpha(0.90)
 
@@ -125,8 +125,8 @@ bb = [float(Bd[k]["set_pct"]) for k in keys]
 aa = [float(Ad[k]["set_pct"]) if k in Ad else 0.0 for k in keys]
 
 ax2.barh(yp + h, bg, height=h, color=GREY, label="retained across both gut genera")
-ax2.barh(yp,     bb, height=h, color=RED,  label="lost at the shared gut ancestor")
-ax2.barh(yp - h, aa, height=h, color=BLUE, label="lost on the Akkermansia branch")
+ax2.barh(yp,     bb, height=h, color=RED,  label="consistent with loss at the shared gut ancestor")
+ax2.barh(yp - h, aa, height=h, color=BLUE, label="consistent with loss on the Akkermansia branch")
 
 def star(q):
     q = float(q)
@@ -154,7 +154,7 @@ ax2.tick_params(axis="x", labelsize=8)
 ax2.tick_params(axis="y", length=0)
 ax2.legend(fontsize=8, frameon=False, loc="upper left",
            bbox_to_anchor=(0.0, -0.075), ncol=1, handlelength=1.6)
-ax2.set_title("B   Functional composition of the two loss events", fontsize=11, loc="left", pad=10)
+ax2.set_title("B   Functional composition of the two loss-pattern sets", fontsize=11, loc="left", pad=10)
 
 for ext in ("pdf", "png"):
     out = f"{OUTD}/Figure_orthogroup_polarity.{ext}"

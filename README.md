@@ -542,7 +542,7 @@ the comparison arm.
 | `scripts/69_reduced_cluster_matched_null.py` | Loss overlap tested against a prevalence-matched null |
 | `scripts/72_reduced_cluster_proportionality.py` | Enzyme repertoire of the reduced cluster tested against genome size |
 
-Output: `figures/Figure_cazy_heatmap.pdf`, `figures/Figure_cazy_polarity_panels.pdf`
+Output: `figures/Figure_cazy_heatmap.pdf`, `figures/Figure_cazy_polarity_panels.pdf`, `tables/TableS6_cazy_by_genus.tsv` (eight named free-living genera, each with at least four annotated genomes)
 
 ## Software
 

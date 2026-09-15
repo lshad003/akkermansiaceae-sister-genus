@@ -47,7 +47,7 @@ ax.set_yticklabels(["%s  (%s)" % (r["family"], MODNAME.get(r["module"], r["modul
                     for r in order], fontsize=8)
 if ctrl:
     ax.axhline(len(body) - 0.5, color="#333333", lw=1.2)
-ax.set_title("Prevalence of chitin-related CAZyme families\nacross the candidate genus and Akkermansia",
+ax.set_title("Prevalence of chitin/chitosan-associated CAZyme families\nacross the candidate genus and Akkermansia",
              fontsize=10, pad=10)
 cb = fig.colorbar(im, ax=ax, fraction=0.030, pad=0.02)
 cb.set_label("% genomes carrying the family", fontsize=8)

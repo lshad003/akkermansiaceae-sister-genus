@@ -93,11 +93,9 @@ ax.text(X0+500*SCALE, 0.06, "1 kb", ha="center", fontsize=7.5)
 
 nsc = sum(1 for r in rows if r["same_contig"] == "True")
 ax.set_xlim(0, C+30); ax.set_ylim(-0.15, len(order)+1.8); ax.axis("off")
-ax.set_title("zwf and opcA form a conserved predicted operon across Akkermansiaceae\n"
-             "%d genomes in %d genera; directly adjacent, co-oriented and zwf-upstream in "
-             "%d of %d genomes where both genes share one contig.\n"
-             "Neither gene is present in any of 331 Akkermansia genomes."
-             % (len(rows), len(order), nsc, nsc), fontsize=10.5, pad=16)
+print("FOR THE CAPTION: %d genomes in %d genera; adjacent, co-oriented and "
+      "zwf-upstream in %d of %d genomes sharing one contig"
+      % (len(rows), len(order), nsc, nsc))
 plt.tight_layout()
 for e in ("pdf", "png"):
     plt.savefig(OUT + "." + e, bbox_inches="tight", dpi=300)

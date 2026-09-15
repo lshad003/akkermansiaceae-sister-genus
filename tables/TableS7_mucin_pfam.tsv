@@ -1,0 +1,13 @@
+family	group	n_present	n_total	pct
+Sulfatase	candidate	105	105	100.0
+Sulfatase	akkermansia	346	346	100.0
+Sulfatase	free	279	280	99.6
+FGE-sulfatase	candidate	105	105	100.0
+FGE-sulfatase	akkermansia	329	346	95.1
+FGE-sulfatase	free	279	280	99.6
+Peptidase_M60	candidate	104	105	99.0
+Peptidase_M60	akkermansia	302	346	87.3
+Peptidase_M60	free	79	280	28.2
+Peptidase_M43	candidate	1	105	1.0
+Peptidase_M43	akkermansia	0	346	0.0
+Peptidase_M43	free	1	280	0.4
